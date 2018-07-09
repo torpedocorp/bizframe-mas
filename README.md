@@ -1,3 +1,3 @@
 # bizframe_mas
-mas 프로젝트
-Camel 엔진 
+Mas 프로젝트
+Camel 엔진을 위한 컨테이너 
