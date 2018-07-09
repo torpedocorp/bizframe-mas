@@ -1,0 +1,10 @@
+<application>
+	<id>test2</id>
+	<name>test2</name>
+	<load-class>kr.co.bizframe.mas.web.JettyApplication</load-class>
+	<params>
+		<param key="port" value="8080" />
+		<param key="context_path" value="/imxs"/>
+		<param key="doc_base" value="./context1"/>
+ 	</params>
+</application>

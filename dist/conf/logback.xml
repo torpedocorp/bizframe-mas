@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="30 seconds">
+ 
+    <!--property resource="resource.properties"/-->
+	<property name="LOG_DIR" value="../logs" />
+	
+	
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern> %d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_DIR}/mas.log</file>
+ 	     <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_DIR}/mas.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+ 
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+ 
+    <logger name="kr.co.bizfrfame" level="DEBUG"/>
+    <logger name="org.apache.camel" level="ERROR"/>
+    <logger name="org.apache.catalina" level="DEBUG"/>
+    <!--logger name="org.eclipse.jetty" level="TRACE"/-->
+    <root level="info">
+         <appender-ref ref="CONSOLE"/>
+         <appender-ref ref="FILE"/>
+     </root>
+</configuration>

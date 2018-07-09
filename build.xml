@@ -1,0 +1,172 @@
+<?xml version="1.0"?>
+
+<!-- ======================================================================= -->
+<!-- BizFrame micro application server - Ant Builder                                               -->
+<!-- author Bae young jun														 -->
+<!-- ======================================================================= -->
+
+<project name="bizframe-mas" default="deploy" basedir=".">
+	<property environment="env"/>
+
+	<!-- build file -->
+	<tstamp>
+		<format property="current.year" pattern="yyyy"/>
+		<format property="DSTAMP" pattern="yyyy-MM-dd"/>
+		<format property="TSTAMP" pattern="HH:mm:ss"/>
+	</tstamp>
+
+	<property file="./build.properties"/>
+	<property name="product.name" value="bizframe-mas"/>
+	<property name="product.version" value="2.0.0"/>
+	<property name="year" value="2018"/>
+
+	<property name="jar.name" value="${product.name}-${product.version}.jar"/>
+	<property name="jar.command.name" value="${product.name}-command-${product.version}.jar"/>
+	<property name="pkg.dir" value="kr/co/bizframe/"/>
+
+	<!-- =================================================================== -->
+	<!-- Build classpath 													 -->
+	<!-- =================================================================== -->
+	<path id="classpath">
+		<fileset dir="${basedir}/dist/lib/system">
+				<include name="**/*.jar"/>
+		</fileset>
+		<fileset dir="${basedir}/dist/lib/extended">
+				<include name="**/*.jar"/>
+		</fileset>
+	</path>
+	<property name="build.classpath" refid="classpath"/>
+
+	<!-- =================================================================== -->
+	<!-- Init the build system                                               -->
+	<!-- =================================================================== -->
+	<target name="init">
+		<echo message=""/>
+		<echo message="------------------------------------------------------------------"/>
+		<echo message="----- ${product.name} v${product.version} [${year}] -----"/>
+		<echo message="------------------------------------------------------------------"/>
+		<echo message="Building with ${ant.version}"/>
+		<echo message="Java ${java.version} located at ${java.home} "/>
+		<echo message="------------------------------------------------------------------"/>
+		<echo message=""/>
+	</target>
+
+	<!-- =================================================================== -->
+	<!-- Prepares the build directory                                        -->
+	<!-- =================================================================== -->
+	<target name="prepare" depends="init">
+		<mkdir dir="${build.dir}"/>
+		<mkdir dir="${classes.dir}"/>
+		<mkdir dir="${deploy.dir}"/>
+	</target>
+
+	<!-- =================================================================== -->
+	<!-- Compiles the source code                                            -->
+	<!-- =================================================================== -->
+
+	<target name="compile" depends="prepare">
+			<javac srcdir="${src.dir}"
+				destdir="${classes.dir}"
+				debug="on"
+				deprecation="on"
+				encoding="UTF-8"
+				optimize="on"
+				classpath="${build.classpath}">
+			</javac>
+
+			<echo message="SRC-DIR ... ${src.dir}"/>
+			<echo message="TO -DIR ... ${build.dir}"/>
+	</target>
+
+
+	<!-- =================================================================== -->
+	<!-- Create boot jar file for deployment										 -->
+	<!-- =================================================================== -->
+	<target name="boot" depends="compile">
+
+		<jar jarfile="${deploy.dir}/boot.jar">
+			<fileset dir="${classes.dir}">
+			<!-- ======================================================= -->
+			<!-- TO SET : List class filenames to delete here -->
+			<!-- ======================================================= -->
+				<include name="**/Main.class"/>
+				<include name="**/AddableClassLoader.class"/>
+				<include name="**/FileScanUtil.class"/>
+			</fileset>
+			<manifest>
+				<attribute name="Created-By" value="Torpedo Corporation"/>
+				<attribute name="Compiled-By" value="jdk-${java.version}"/>
+				<section name="BizFrame mas">
+					<attribute name="Implementation-Title" value="${product.name}"/>
+					<attribute name="Implementation-Version" value="${product.version} build ${DSTAMP} ${TSTAMP}"/>
+					<attribute name="Implementation-Vendor" value="Torpedo Corporation"/>
+				</section>
+			</manifest>
+		</jar>
+
+		<copy file="${deploy.dir}/boot.jar" todir="./dist/bin/"/>
+	</target>
+
+	<target name="command" depends="compile">
+
+			<jar jarfile="${deploy.dir}/${jar.command.name}">
+				<fileset dir="${classes.dir}">
+				<!-- ======================================================= -->
+				<!-- TO SET : List class filenames to delete here -->
+				<!-- ======================================================= -->
+					<include name="${pkg.dir}/mas/command/**/*.*"/>
+				</fileset>
+				<manifest>
+					<attribute name="Created-By" value="Torpedo Corporation"/>
+					<attribute name="Compiled-By" value="jdk-${java.version}"/>
+					<section name="BizFrame mas">
+						<attribute name="Implementation-Title" value="${product.name}-command"/>
+						<attribute name="Implementation-Version" value="${product.version} build ${DSTAMP} ${TSTAMP}"/>
+						<attribute name="Implementation-Vendor" value="Torpedo Corporation"/>
+					</section>
+				</manifest>
+			</jar>
+
+			<copy file="${deploy.dir}/${jar.command.name}" todir="./dist/bin"/>
+		</target>
+
+
+	<target name="deploy" depends="compile,boot, command">
+
+		<jar jarfile="${deploy.dir}/${jar.name}">
+			<fileset dir="${classes.dir}">
+				<include name="${pkg.dir}/**/*.*" />
+				<exclude name="${pkg.dir}/sample/**/*.*" />
+			</fileset>
+			<manifest>
+				<attribute name="Created-By" value="Torpedo Corporation"/>
+				<attribute name="Compiled-By" value="jdk-${java.version}"/>
+				<section name="BizFrame Remoting">
+					<attribute name="Implementation-Title" value="${product.name}"/>
+					<attribute name="Implementation-Version" value="${product.version} build ${DSTAMP} ${TSTAMP}"/>
+					<attribute name="Implementation-Vendor" value="Torpedo Corporation"/>
+				</section>
+			</manifest>
+		</jar>
+
+		<!--copy file="${deploy.dir}/lib/system/${jar.name}" todir="C:/tomcat/esb_sample/lib/system"/-->
+		<!--copy file="${deploy.dir}/lib/system/${jar.name}" todir="C:/tomcat/mas/lib/system"/-->
+		<copy file="${deploy.dir}/${jar.name}" todir="./dist/lib/system/"/>
+		<!--copy file="${deploy.dir}/${jar.name}" todir="../esb_socket/lib"/-->
+		<!--copy file="${deploy.dir}/${jar.name}" todir="../esb_mq/lib"/-->
+	</target>
+
+	<!-- =================================================================== -->
+	<!-- Cleans up generated stuff                                           -->
+	<!-- =================================================================== -->
+	<target name="clean">
+		<delete>
+			<fileset dir="${classes.dir}">
+				<!-- ======================================================= -->
+				<!-- TO SET : List class filenames to delete here 			 -->
+				<!-- ======================================================= -->
+				<include name="**/*.class"/>
+			</fileset>
+		</delete>
+	</target>
+</project>
