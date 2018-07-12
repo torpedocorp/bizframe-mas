@@ -26,7 +26,7 @@ public interface ManagedMasApplicationMBean {
 	
 	public String getApplicationPath();
 	
-	public int getPriority();
+	public int getLoadSequence();
 	
 	public void start() throws Exception;
 	

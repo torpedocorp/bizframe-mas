@@ -252,7 +252,7 @@ public class MasEngine implements Lifecycle {
 		ApplicationDefInfo appDefInfo = new ApplicationDefInfo();
 		appDefInfo.setId(appDef.getId());
 		appDefInfo.setName(appDef.getName());
-		appDefInfo.setPriority(appDef.getPriority());
+		appDefInfo.setLoadSequencey(appDef.getLoadSequence());
 		appDefInfo.setContextDir(appDef.getContextDir());
 		appDefInfo.setLoadClass(appDef.getLoadClass());
 		appDefInfo.setParentOnlyClassLoader(appDef.isParentOnlyClassLoader());

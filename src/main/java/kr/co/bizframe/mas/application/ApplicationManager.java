@@ -143,14 +143,14 @@ public class ApplicationManager implements Lifecycle {
 		// 초기화
 		applicationDefs.clear();
 		
-		// 지정 디렉터리 스캔
+		// 지정 로딩 디렉터리 스캔
 		for (kr.co.bizframe.mas.conf.bind.Application app : appsConf) {
 			File fa = new File(app.getContextPath());
 			//scanAppDirectory(fa);
 			applicationFiles.put(fa.getName(), fa);
 		}
 
-		// 자동 deploy 디렉토러 스캔
+		// 자동 로딩 디렉토러 스캔
 		log.info("applications base home=[" + baseDir + "]");
 		File appHome = new File(baseDir);
 		File[] apps = appHome.listFiles();
@@ -319,7 +319,7 @@ public class ApplicationManager implements Lifecycle {
 	private void startupApplications() {
 
 		//Collections.sort(applicationDefs, new PriorityCompare());
-		List<ApplicationDef> appDefs = getApplicationDefsSortByPriority(true);
+		List<ApplicationDef> appDefs = getApplicationDefsSortBySequence(false);
 	
 		for (ApplicationDef appDef : appDefs) {
 			log.info("appDef = " + appDef);
@@ -327,7 +327,7 @@ public class ApplicationManager implements Lifecycle {
 
 		for (ApplicationDef appDef : appDefs) {
 			try{
-				deployApplication(appDef);
+				startupApplication(appDef);
 			}catch(Exception e){
 				log.error(e.getMessage(), e);
 			}
@@ -348,6 +348,27 @@ public class ApplicationManager implements Lifecycle {
 	}
 	*/
 	
+	private void startupApplication(ApplicationDef appDef) throws Exception {
+		
+		if(appDef == null){
+			throw new Exception("application def is null");
+		}
+	
+		String appId = appDef.getId();
+		MasApplication ma = null;
+		try {
+			ma = createManagedApplication(appDef);
+			applications.put(appId, ma);
+		} catch (Throwable t) {
+			internalDestroy(ma);
+			throw new Exception(t.getMessage(), t);
+		}
+		
+		if(appDef.isAutoDeploy()){
+			deployApplication(appDef);
+		}
+	}
+	
 	
 	private void deployApplication(ApplicationDef appDef) throws Exception {
 
@@ -358,18 +379,16 @@ public class ApplicationManager implements Lifecycle {
 		String appId = appDef.getId();
 		MasApplication ma = applications.get(appId);
 		
-		if(ma != null){
+		if(ma == null){
+			throw new Exception("can't deploy application. Application is not startup properly.!");
+		}
 			
-			if(ma.getStatus() == MasApplication.Status.INITED ||
-					ma.getStatus() == MasApplication.Status.STARTED ){
-				throw new Exception("application status is not valid status=["+ma.getStatus()+ "]");
-			}
-			
-			//ma가 아직 남아 있다면 오류 케이스 이므로 일단 다시 제거.
-			//internalDestroy(ma);
+		if(ma.getStatus() == MasApplication.Status.INITED ||
+				ma.getStatus() == MasApplication.Status.STARTED ){
+			throw new Exception("application status is not valid status=["+ma.getStatus()+ "]");
 		}
 		
-
+		/*
 		try {
 			ma = createManagedApplication(appDef);
 			applications.put(appId, ma);
@@ -377,6 +396,8 @@ public class ApplicationManager implements Lifecycle {
 			internalDestroy(ma);
 			throw new Exception(t.getMessage(), t);
 		}
+		*/
+			
 		
 		try {
 			loadApplication(ma, appDef);
@@ -429,19 +450,7 @@ public class ApplicationManager implements Lifecycle {
 	
 	
 	public void deployApplication(String appId)  throws Exception {
-		//ManagedApplication ma = applications.get(appId);
 		ApplicationDef def = null;
-		
-		/*
-		 * deploy 시에는 항상 새로운 application def로 로딩함.  
-		 */
-		/*
-		if(ma != null){
-			def = ma.getContext().getApplicationDef();
-		}else {
-			def = getApplicationDef(appId);
-		}
-		*/
 		def = applicationDefs.get(appId);
 		deployApplication(def);
 	}
@@ -522,7 +531,12 @@ public class ApplicationManager implements Lifecycle {
 		if (ma == null) {
 			throw new Exception("managed application is null.");
 		}
-
+		
+		if(ma.getStatus() != MasApplication.Status.INITED){
+			deployApplication(ma.getContext().getApplicationDef());
+		}
+		
+		
 		Application application = ma.getApplication();
 		if(application instanceof Serviceable){
 
@@ -547,11 +561,17 @@ public class ApplicationManager implements Lifecycle {
 			return;
 		}
 
+		if(applicationWatcher != null){
+			applicationWatcher.shutdown();
+		}
+		
 		try {
 			undeployAll();
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 		}
+		
+		
 		status = Status.SHUTDOWNED;
 	}
 
@@ -734,37 +754,26 @@ public class ApplicationManager implements Lifecycle {
 	 priority 순번이 낮을수록  먼저 위치한다.
 	 priorty 0 이 priority 1 보다 먼저  로딩 ,  내려갈때는 반대순서
 	*/
-	static class PriorityCompare implements Comparator<ApplicationDef> {
+	static class LoadSequenceCompare implements Comparator<ApplicationDef> {
 		
-		private boolean descending = false;
+		private boolean reverse = false;
 		
-		public PriorityCompare(boolean descending){
-			this.descending = descending;
+		public LoadSequenceCompare(boolean reverse){
+			this.reverse = reverse;
 		}
 		
 		public int compare(ApplicationDef def1, ApplicationDef def2) {
 
-			int priority1 = def1.getPriority();
-			int priority2 = def2.getPriority();
-
-			/*
-			if (priority1 > priority2) {
-				return 1;
-			} else if (priority1 == priority2) {
-				return 0;
-			} else {
-				return -1;
-			}
-			*/
-			if (priority1 > priority2) {
-				
-				if(descending) return -1;
+			int sequence1 = def1.getLoadSequence();
+			int sequence2 = def2.getLoadSequence();
+		
+			if (sequence1 > sequence2) {
+				if(reverse) return -1;
 				else return 1;
-			} else if (priority1 == priority2) {
+			} else if (sequence1 == sequence2) {
 				return 0;
 			} else {
-				
-				if(descending) return 1;
+				if(reverse) return 1; 
 				else return -1;
 			}
 		}
@@ -772,68 +781,13 @@ public class ApplicationManager implements Lifecycle {
 	}
 
 	
-	private List<ApplicationDef> getApplicationDefsSortByPriority(boolean descending) {
+	private List<ApplicationDef> getApplicationDefsSortBySequence(boolean reverse) {
 		List<ApplicationDef> list = new ArrayList<ApplicationDef>();
 		list.addAll(applicationDefs.values());		
-		Collections.sort(list, new PriorityCompare(descending));
+		Collections.sort(list, new LoadSequenceCompare(reverse));
 		return list;
 	}
 	
-	
-	/*
-	public Map<String, ApplicationDef> sortByPriority(final Map<String, ApplicationDef> map, boolean descending) {
-		System.out.println("xxxxxxxxx original size = " + map.size());
-		//TreeMap<String, ApplicationDef> sorted = 
-		//		 new TreeMap<String, ApplicationDef>(new PriorityCompare(map, descending));
-		TreeMap<String, ApplicationDef> sorted = new TreeMap<String, ApplicationDef>();
-		
-		sorted.putAll(map); 
-		
-		System.out.println("xxxxxxxxx sorted size = " + sorted.size());
-		
-		return sorted;
-	}
-	*/
-	
-	
-	
-	/*
-	 priority 순번이 낮을수록  먼저 위치한다.
-	 priorty 0 이 priority 1 보다 먼저  로딩 ,  내려갈때는 반대순서
-	*/
-	/*
-	static class PriorityCompare implements Comparator<String> {
-		
-		private Map<String, ApplicationDef> map;
-		
-		private boolean descending = false;
-		
-		public PriorityCompare(Map<String, ApplicationDef> map, boolean descending){
-			this.map = map;
-			this.descending = descending;
-		}
-		
-		public int compare(String id1, String id2) {
-
-			int priority1 = map.get(id1).getPriority();
-			int priority2 = map.get(id2).getPriority();
-			
-			if (priority1 > priority2) {
-				
-				if(descending) return -1;
-				else return 1;
-			} else if (priority1 == priority2) {
-				return 0;
-			} else {
-				
-				if(descending) return 1;
-				else return -1;
-			}
-
-		}
-
-	}
-	*/
 	
 	
 }

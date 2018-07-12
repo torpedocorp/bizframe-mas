@@ -105,8 +105,8 @@ public class ManagedMasApplication extends NotificationBroadcasterSupport implem
 	}
 	
 	@Override
-	public int getPriority(){
-		return mapplication.getContext().getApplicationDef().getPriority();
+	public int getLoadSequence(){
+		return mapplication.getContext().getApplicationDef().getLoadSequence();
 	}
 	
 	@Override

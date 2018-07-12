@@ -40,6 +40,7 @@ public class ApplicationConfig {
 		def.setLoadClass(loadClass);
 		def.setParentFirstClassLoader(false);
 		def.setParentOnlyClassLoader(false);
+		
 		// optional
 		// 상위 클래스 로더를 그대로 사용할지 여부
 		// default : 새로 생성
@@ -59,15 +60,23 @@ public class ApplicationConfig {
 		// optional
 		// 어플리케이션 로딩 순번 - integer 낮은 수일수록 먼저 로딩
 		// default : 0 (가장 먼저 로딩)
-		String spriority = XMLUtil.getText("priority", ele, true);
-		if (spriority != null) {
-			int priority = 0;
+		String sseqeunce = XMLUtil.getText("load-sequence", ele, true);
+		if (sseqeunce != null) {
+			int seqeunce = 0;
 			try {
-				priority = Integer.parseInt(spriority);
+				seqeunce = Integer.parseInt(sseqeunce);
 			} catch (Exception e) {
-				throw new Exception("priority is not integer.");
+				throw new Exception("load-sequence is not integer.");
 			}
-			def.setPriority(priority);
+			def.setLoadSequence(seqeunce);
+		}
+
+		// optional
+		// application 이 sesrvice일 경우 엔진 로딩시 자동 deploy 여부
+		// default : true
+		String autodeploy = XMLUtil.getText("auto-deploy", ele, true);
+		if ("false".equalsIgnoreCase(autodeploy)) {
+			def.setAutoDeploy(false);
 		}
 
 		// optional

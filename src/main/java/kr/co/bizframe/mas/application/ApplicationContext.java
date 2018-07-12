@@ -1,5 +1,7 @@
 package kr.co.bizframe.mas.application;
 
+import java.net.URL;
+
 import kr.co.bizframe.mas.routing.RoutingContext;
 import kr.co.bizframe.mas.routing.RoutingManager;
 import kr.co.bizframe.mas.routing.impl.DefaultRoutingContext;
@@ -107,5 +109,16 @@ public class ApplicationContext extends PropertyHolder {
 
 	public ApplicationManager getApplicationManager() {
 		return applicationManager;
+	}
+	
+	public URL getResource(String name){
+		
+		URL url = null;
+		try{
+			url = new URL("file://"+contextDir + "/" + name);
+		}catch(Exception e){
+			throw new RuntimeException(e.getMessage(), e);
+		}
+		return url;
 	}
 }

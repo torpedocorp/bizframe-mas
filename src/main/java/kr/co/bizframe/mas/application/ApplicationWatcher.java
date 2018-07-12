@@ -49,7 +49,7 @@ public class ApplicationWatcher {
 
 
 	
-	public void stop(){
+	public void shutdown(){
 		for(WatchThread watchThread : watchThreads){
 			watchThread.shutdown();
 			watchThread.interrupt();
