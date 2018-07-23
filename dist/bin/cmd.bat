@@ -11,7 +11,7 @@ rem ----------------------------------------------------------
 
 SET MAS_HOME= ../
 
-SET MAS_CLASSPATH=%MAS_HOME%\bin\bizframe-mas-command-1.0.0.jar
+SET MAS_CLASSPATH=%MAS_HOME%\bin\bizframe-mas-command-2.0.0.jar
 
 
 echo Start BizFrame MAS command tool 

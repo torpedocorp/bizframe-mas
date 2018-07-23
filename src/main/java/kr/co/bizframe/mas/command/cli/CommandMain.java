@@ -12,7 +12,16 @@ import kr.co.bizframe.mas.command.CommandResponse;
 
 public class CommandMain {
 	
+	private CommandInvoker invoker;
 	
+	public CommandMain(){
+		this.invoker = new CommandInvoker();
+	}
+
+	public CommandMain(String ip, int port, int timeout){
+		this.invoker = new CommandInvoker(ip, port, timeout);
+	}
+
 	public void process(){
 		
 		showLogo();
@@ -85,13 +94,10 @@ public class CommandMain {
 	}
 	
 	
-	
 	private void showLogo(){
-		
 		System.out.println("==========================================================");
-		System.out.println("====== Bizframe micro application server  v1.0.0  ========");
+		System.out.println("====== BizFrame micro application server  v2.0.0  ========");
 		System.out.println("==========================================================");
-		
 	}
 	
 	
@@ -114,21 +120,19 @@ public class CommandMain {
 	
 	 
 	private void status(){
-		
 		try{
-			CommandInvoker ci = new CommandInvoker();
-			CommandResponse response = ci.invoke(new Command.STATUS());
+			CommandResponse response = invoker.invoke(new Command.STATUS());
 			printResponse(response);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 	}
 	
+	
 	private void shutdown(){
 		
 		try{
-			CommandInvoker ci = new CommandInvoker();
-			CommandResponse response = ci.invoke(new Command.SHUTDOWN());
+			CommandResponse response = invoker.invoke(new Command.SHUTDOWN());
 			printResponse(response);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -138,8 +142,7 @@ public class CommandMain {
 	private void version(){
 		
 		try{
-			CommandInvoker ci = new CommandInvoker();
-			CommandResponse response = ci.invoke(new Command.VERSION());
+			CommandResponse response = invoker.invoke(new Command.VERSION());
 			printResponse(response);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -153,11 +156,10 @@ public class CommandMain {
 			if(cmds[1] == null){
 				throw new Exception("app is null.");
 			}
-			
-			CommandInvoker ci = new CommandInvoker();
+		
 			Command cmd = new Command.START_APP();
 			cmd.addParam(cmds[1]);
-			CommandResponse response = ci.invoke(cmd);
+			CommandResponse response = invoker.invoke(cmd);
 			printResponse(response);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -171,11 +173,10 @@ public class CommandMain {
 			if(cmds.length == 1){
 				throw new Exception("app id is null.");
 			}
-			
-			CommandInvoker ci = new CommandInvoker();
+	
 			Command cmd = new Command.STOP_APP();
 			cmd.addParam(cmds[1]);
-			CommandResponse response = ci.invoke(cmd);
+			CommandResponse response = invoker.invoke(cmd);
 			printResponse(response);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -190,11 +191,10 @@ public class CommandMain {
 			if(cmds.length == 1){
 				throw new Exception("app id is null.");
 			}
-			
-			CommandInvoker ci = new CommandInvoker();
+	
 			Command cmd = new Command.DEPLOY_APP();
 			cmd.addParam(cmds[1]);
-			CommandResponse response = ci.invoke(cmd);
+			CommandResponse response = invoker.invoke(cmd);
 			printResponse(response);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -209,11 +209,10 @@ public class CommandMain {
 			if(cmds.length == 1){
 				throw new Exception("app id is null.");
 			}
-			
-			CommandInvoker ci = new CommandInvoker();
+
 			Command cmd = new Command.UNDEPLOY_APP();
 			cmd.addParam(cmds[1]);
-			CommandResponse response = ci.invoke(cmd);
+			CommandResponse response = invoker.invoke(cmd);
 			printResponse(response);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -223,9 +222,8 @@ public class CommandMain {
 	private void refreshAppDef(String[] cmds){
 		
 		try{
-		
-			CommandInvoker ci = new CommandInvoker();
-			CommandResponse response = ci.invoke(new Command.REFRESH_APP_DEF());
+
+			CommandResponse response = invoker.invoke(new Command.REFRESH_APP_DEF());
 			printResponse(response);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -240,8 +238,7 @@ public class CommandMain {
 				throw new Exception("app is null.");
 			}
 	
-			CommandInvoker ci = new CommandInvoker();
-			CommandResponse response = ci.invoke(new Command.GET_APP_DEF());
+			CommandResponse response = invoker.invoke(new Command.GET_APP_DEF());
 			printListResponse(response);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -252,9 +249,7 @@ public class CommandMain {
 	private void appDefList(){
 		
 		try{
-	
-			CommandInvoker ci = new CommandInvoker();
-			CommandResponse response = ci.invoke(new Command.GET_APP_DEF_LIST());
+			CommandResponse response = invoker.invoke(new Command.GET_APP_DEF_LIST());
 			printListResponse(response);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -269,11 +264,10 @@ public class CommandMain {
 			if(cmds[1] == null){
 				throw new Exception("app is null.");
 			}
-			
-			CommandInvoker ci = new CommandInvoker();
+		
 			Command cmd = new Command.GET_APP_INFO();
 			cmd.addParam(cmds[1]);
-			CommandResponse response = ci.invoke(cmd);
+			CommandResponse response = invoker.invoke(cmd);
 			printResponse(response);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -284,8 +278,7 @@ public class CommandMain {
 	private void appList(){
 		
 		try{
-			CommandInvoker ci = new CommandInvoker();
-			CommandResponse response = ci.invoke(new Command.GET_APP_LIST());
+			CommandResponse response = invoker.invoke(new Command.GET_APP_LIST());
 			printListResponse(response);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -326,7 +319,13 @@ public class CommandMain {
 	
 	
 	public static void main(String[] argv){
-		CommandMain cm = new CommandMain();
+	
+		CommandLine cl = new CommandLine(argv);
+		String host = cl.getValue("-h", CommandInvoker.DEFAULT_HOST);
+		int port = cl.getIntValue("-p", CommandInvoker.DEFAULT_PORT);
+		int timeout = cl.getIntValue("-t", CommandInvoker.DEFALUT_TIMEOUT);
+		
+		CommandMain cm = new CommandMain(host, port, timeout);
 		cm.process();
 	}
 }

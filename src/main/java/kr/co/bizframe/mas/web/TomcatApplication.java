@@ -1,20 +1,16 @@
 package kr.co.bizframe.mas.web;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.LogManager;
 
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleState;
 import org.apache.catalina.Service;
 import org.apache.catalina.connector.Connector;
 import org.apache.catalina.startup.Tomcat;
+import org.apache.tomcat.util.scan.StandardJarScanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.tomcat.util.scan.StandardJarScanner;
 
 import kr.co.bizframe.mas.Application;
 import kr.co.bizframe.mas.Serviceable;

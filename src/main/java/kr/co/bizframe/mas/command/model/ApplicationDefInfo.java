@@ -12,7 +12,7 @@ public class ApplicationDefInfo implements Serializable{
 
 	private boolean autoStart = true;
 
-	private int priority = 0;
+	private int loadSequence = 0;
 
 	private String contextDir;
 
@@ -46,12 +46,12 @@ public class ApplicationDefInfo implements Serializable{
 		this.autoStart = autoStart;
 	}
 
-	public int getPriority() {
-		return priority;
+	public int getLoadSequence() {
+		return loadSequence;
 	}
 
-	public void setPriority(int priority) {
-		this.priority = priority;
+	public void setLoadSequencey(int sequence) {
+		this.loadSequence = sequence;
 	}
 
 	public String getContextDir() {
@@ -89,7 +89,7 @@ public class ApplicationDefInfo implements Serializable{
 	@Override
 	public String toString() {
 		return "ApplicationDefInfo [id=" + id + ", name=" + name
-				+ ", autoStart=" + autoStart + ", priority=" + priority
+				+ ", autoStart=" + autoStart + ", loadSequence=" + loadSequence
 				+ ", contextDir=" + contextDir + ", loadClass=" + loadClass
 				+ ", parentOnlyClassLoader=" + parentOnlyClassLoader
 				+ ", parentFirstClassLoader=" + parentFirstClassLoader + "]";

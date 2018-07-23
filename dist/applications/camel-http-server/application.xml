@@ -1,0 +1,11 @@
+<application>
+	<id>camel-http-server</id>
+	<name>camel-http-server</name>
+	<load-class>kr.co.bizframe.mas.camel.CamelApplication</load-class>
+	<!--parent-first-classloader>false</parent-first-classloader-->
+	<!--parent-only-classloader>true</parent-only-classloader-->
+	<params>
+		<param key="test" value="test" ></param>
+		<param key="test2" value="test2"></param>
+ 	</params>
+</application>

@@ -32,9 +32,11 @@ public class MasConfig {
 
 	public final static String MAS_CONF_FILE = "mas-conf.xml";
 
+	//public static String DEFAULT_SERVER_IP = "127.0.0.1";
+	
 	public static int DEFAULT_SERVER_PORT = 9091;
 	
-	public static int DEFAULT_SERVER_TIMEOUT = 3000;
+	public static int DEFAULT_SERVER_TIMEOUT = 10000;
 
 	public static ServerDef server;
 
@@ -55,7 +57,7 @@ public class MasConfig {
 	public static ServerDef getServer() {
 		return server;
 	}
-
+	
 	private static void parse(File confFile) throws Exception {
 		try {
 			server = new ServerDef();
@@ -75,7 +77,12 @@ public class MasConfig {
 			// TODO config는 모양이 좀 ... mykim
 			server.setTimeout(DEFAULT_SERVER_TIMEOUT);
 			Element engineEle = serverEle.getChild("engine");
+			String shotDeploy = XMLUtil.getAttribute("hot-deploy", engineEle);
+			boolean hotDeploy = PropertyUtil.getBooleanProperty(shotDeploy, false);
+			
 			EngineDef engine = new EngineDef();
+			engine.setHotDeploy(hotDeploy);
+			
 			server.setEngine(engine);
 
 			// ////////////////////////////////////////////////////////
@@ -90,7 +97,7 @@ public class MasConfig {
 				RoutingDef routing = new RoutingDef();
 				routing.setEnable(routingEnable);
 				routing.setClassName(routingClassName);
-
+ 
 				engine.setRouting(routing);
 			}
 			// ////////////////////////////////////////////////////////
@@ -100,7 +107,6 @@ public class MasConfig {
 			if (applicationsEle != null) {
 				ApplicationsDef applications = new ApplicationsDef();
 				String base = XMLUtil.getAttribute("base-dir", applicationsEle);
-
 				applications.setBaseDir(base);
 
 				List applicationEles = applicationsEle.getChildren("application");

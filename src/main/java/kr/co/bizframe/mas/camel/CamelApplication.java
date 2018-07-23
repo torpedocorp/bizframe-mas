@@ -3,7 +3,6 @@ package kr.co.bizframe.mas.camel;
 import java.util.List;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.api.management.mbean.ManagedCamelContextMBean;
 import org.apache.camel.spring.Main;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

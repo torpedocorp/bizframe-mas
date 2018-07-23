@@ -3,14 +3,13 @@ package kr.co.bizframe.mas.application;
 import java.io.File;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.ArrayList;
 import java.util.List;
-
-import kr.co.bizframe.mas.util.AddableClassLoader;
-import kr.co.bizframe.mas.util.FileScanUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import kr.co.bizframe.mas.util.AddableClassLoader;
+import kr.co.bizframe.mas.util.FileScanUtil;
 
 public class ApplicationClassLoader extends URLClassLoader {
 
@@ -21,18 +20,18 @@ public class ApplicationClassLoader extends URLClassLoader {
 	private ClassLoader parent;
 
 	private String contextDir;
-
+	
 	/*
 	 * 상위 parent 로더에서 먼저 리소스 찾을지 여부
 	 *  useParentFirst = false : 자기 로더에서 먼저 찾음
 	 */
-	private boolean useParentFirst = false;
+	protected boolean useParentFirst = false;
 
 	/*
 	 * 상위 parent 클래스 로더만 이용하고
 	 * 자신의 로더는 사용하지 않음.
 	 */
-	private boolean useParentOnly = false;
+	protected boolean useParentOnly = false;
 
 	public ApplicationClassLoader(String appId, String contextDir,
 			ClassLoader parent){
@@ -73,6 +72,8 @@ public class ApplicationClassLoader extends URLClassLoader {
 		}
 	}
 
+
+	
 	private void addPath() {
 
 		String classDir = "classes";
@@ -206,10 +207,10 @@ public class ApplicationClassLoader extends URLClassLoader {
 
 		// parent 에서만 찾음
 		if(useParentOnly){
+			log.info("use parent only classloader");
 			return loadParentOnlyClass(name, resolve);
 		}
-
-
+			
 		if(clazz == null && useParentFirst){
 			try{
 				clazz = parent.loadClass(name);

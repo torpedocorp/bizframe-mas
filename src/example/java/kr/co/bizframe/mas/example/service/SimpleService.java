@@ -1,5 +1,9 @@
 package kr.co.bizframe.mas.example.service;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.net.URL;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -7,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import kr.co.bizframe.mas.Application;
 import kr.co.bizframe.mas.Serviceable;
 import kr.co.bizframe.mas.application.ApplicationContext;
-import kr.co.bizframe.mas.application.ManagedApplication;
 
 public class SimpleService implements Application, Serviceable{
 	

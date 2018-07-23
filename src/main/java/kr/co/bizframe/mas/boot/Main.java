@@ -55,7 +55,7 @@ public class Main {
 		if (argv != null && argv.length > 0) {
 			command = argv[0];
 		}
-		
+		System.out.println("command=["+command+"]");
 		// 코드가 어떤게 맞는지 확인 필요
 		// 2017.07.04
 		File home = new File(DEFAULT_HOME_DIR);
@@ -101,6 +101,9 @@ public class Main {
 				// command 가 shutdown 일때
 			} else if (command.equalsIgnoreCase("shutdown")) {
 				runTask = task.getMethod("shutdown", new Class[] {});
+				runTask.invoke(instance);
+			} else if (command.equalsIgnoreCase("shutdown-force")) {
+				runTask = task.getMethod("shutdownForcelly", new Class[] {});
 				runTask.invoke(instance);
 			} else if (command.equalsIgnoreCase("version")) {
 				runTask = task.getMethod("version", new Class[] {});
@@ -164,7 +167,6 @@ public class Main {
 		Thread.currentThread().setContextClassLoader(classLoader);
 		return classLoader;
 	}
-	
 	
 	
 	

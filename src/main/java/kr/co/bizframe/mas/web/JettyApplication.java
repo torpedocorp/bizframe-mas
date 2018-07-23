@@ -3,29 +3,32 @@ package kr.co.bizframe.mas.web;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.jetty.annotations.ServletContainerInitializersStarter;
+//import org.eclipse.jetty.apache.jsp.JettyJasperInitializer;
+import org.eclipse.jetty.http.HttpVersion;
+import org.eclipse.jetty.jmx.MBeanContainer;
+import org.eclipse.jetty.plus.annotation.ContainerInitializer;
+import org.eclipse.jetty.server.Connector;
+import org.eclipse.jetty.server.Handler;
+import org.eclipse.jetty.server.HttpConfiguration;
+import org.eclipse.jetty.server.HttpConnectionFactory;
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.ServerConnector;
+import org.eclipse.jetty.server.SslConnectionFactory;
+import org.eclipse.jetty.server.handler.ContextHandlerCollection;
+import org.eclipse.jetty.util.ssl.SslContextFactory;
+import org.eclipse.jetty.webapp.WebAppContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import kr.co.bizframe.mas.Application;
 import kr.co.bizframe.mas.Serviceable;
 import kr.co.bizframe.mas.application.ApplicationContext;
-import kr.co.bizframe.mas.application.ApplicationContextUtils;
 import kr.co.bizframe.mas.application.ApplicationException;
+import kr.co.bizframe.mas.management.JMXManager;
 import kr.co.bizframe.mas.util.leak.ClassLoaderLeakPreventor;
 import kr.co.bizframe.mas.util.leak.ClassLoaderLeakPreventorFactory;
-import kr.co.bizframe.mas.util.leak.ClassLoaderLeakPreventorListener;
-import kr.co.bizframe.mas.util.leak.cleanup.ShutdownHookCleanUp;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.eclipse.jetty.server.Connector;
-import org.eclipse.jetty.server.Handler;
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.SessionIdManager;
-import org.eclipse.jetty.server.handler.ContextHandlerCollection;
-import org.eclipse.jetty.server.nio.SelectChannelConnector;
-import org.eclipse.jetty.server.ssl.SslSelectChannelConnector;
-import org.eclipse.jetty.util.ssl.SslContextFactory;
-//import org.eclipse.jetty.util.preventers.AppContextLeakPreventer;
-//import org.eclipse.jetty.util.preventers.DriverManagerLeakPreventer;
-import org.eclipse.jetty.webapp.WebAppContext;
+import kr.co.bizframe.mas.web.WebAppConfigs.WebAppConfig;
 
 public class JettyApplication implements Serviceable, Application {
 
@@ -50,12 +53,19 @@ public class JettyApplication implements Serviceable, Application {
 			// boolean disableCreateCL = context.getBooleanProperty("disable_create_cl", false);
 
 			jettyServer = new Server();
-	
-			Connector connector = createConnector(context);
 			
+			// Setup JMX
+			boolean enableJMX = context.getBooleanProperty("enable_jmx", false);
+			if(enableJMX){
+				MBeanContainer mbContainer=new MBeanContainer(JMXManager.getMBeanServer());
+				//jettyServer.getContainer().addEventListener(mbContainer);
+				jettyServer.addBean(mbContainer);
+			}
+		
+			Connector connector = createConnector(context);
 			jettyServer.setConnectors(new Connector[] { connector });
 			
-			List<WebAppConfig> waconfigs = getWebAppConfig(context);
+			List<WebAppConfig> waconfigs = WebAppConfigs.getWebAppConfigs(context);
 		
 			for(WebAppConfig waconfig : waconfigs){
 			
@@ -64,13 +74,44 @@ public class JettyApplication implements Serviceable, Application {
 				webapp.setAttribute("applicationContext", context);
 				webapp.setContextPath(waconfig.getContextPath());
 				webapp.setResourceBase(waconfig.getDocBase());
-			
-				// static file locking 해제 
+				
+				
+				org.eclipse.jetty.webapp.Configuration.ClassList classlist = 
+						org.eclipse.jetty.webapp.Configuration.ClassList.setServerDefault(jettyServer);
+		        classlist.addAfter("org.eclipse.jetty.webapp.FragmentConfiguration", 
+		        		"org.eclipse.jetty.plus.webapp.EnvConfiguration", 
+		        		"org.eclipse.jetty.plus.webapp.PlusConfiguration");
+		        classlist.addBefore("org.eclipse.jetty.webapp.JettyWebXmlConfiguration",
+		        		"org.eclipse.jetty.annotations.AnnotationConfiguration");
+				
+		        
+		        /*
+		         * JSP 지원을 위해서 catalina를 사용하나 tomcat 패키지와 
+		         * 충돌하므로 jetty에서는 jsp 지원은 종료함. 향후 jsp를 위해서는 
+		         * tomcat application 사용을 함.
+		         *
+		         */
+		        
+		        /*
+		        JettyJasperInitializer sci = new JettyJasperInitializer();
+		        ServletContainerInitializersStarter sciStarter = new ServletContainerInitializersStarter(webapp);
+		        ContainerInitializer initializer = new ContainerInitializer(sci, null);
+		        List<ContainerInitializer> initializers = new ArrayList<ContainerInitializer>();
+		        initializers.add(initializer);
+		        webapp.setAttribute("org.eclipse.jetty.containerInitializers", initializers);
+		        webapp.addBean(sciStarter, true);
+		        */
+		        
+		        
+		        webapp.setInitParameter("org.eclipse.jetty.servlet.Default.dirAllowed", "false");
+		        
+		        // static file locking 해제 
 				// 기본 false
 				boolean useFileMapperedBuffer = context.getBooleanProperty("use_filemappered_buffer", false);
 				log.debug("use fileMapperedBuffer = "+ useFileMapperedBuffer);
 				if (!useFileMapperedBuffer) {
-					webapp.getInitParams().put("useFileMappedBuffer", "false"); 
+					//webapp.getInitParams().put("useFileMappedBuffer", "false"); 
+					webapp.getInitParams().put("org.eclipse.jetty.servlet.Default.useFileMappedBuffer", "false");
 				}
 				
 				//jettyServer.setHandler(webapp);
@@ -96,8 +137,9 @@ public class JettyApplication implements Serviceable, Application {
 			jettyServer.setHandler(contexts);
 			
 			
-			for(WebAppContext webapp :webappContexts){
+			for(WebAppContext webapp : webappContexts){
 				webapp.start();
+	
 				// leak preventor 추가 
 				if(enableLeakPreventor){
 					log.debug("enable web leak preventor");
@@ -112,16 +154,15 @@ public class JettyApplication implements Serviceable, Application {
 				}
 			}
 			
-			
 		} catch (Throwable t) {
-			log.error(t.getMessage(), t);
+			throw new ApplicationException(t.getMessage(), t);
 		}
 	}
 
 	public ApplicationContext getAppContext() {
 		return appContext;
 	}
-
+	
 	public void setAppContext(ApplicationContext appContext) {
 		this.appContext = appContext;
 	}
@@ -140,17 +181,21 @@ public class JettyApplication implements Serviceable, Application {
 		try {
 			jettyServer.start();
 		} catch (Exception e) {
-			log.error(e.getMessage(), e);
+			//log.error(e.getMessage(), e);
+			throw new Exception(e.getMessage(), e);
 		}
 	}
 
 	public void stop() throws Exception {
-
 		try {
-		
+			for(WebAppContext context : webappContexts){
+				context.stop();
+			}
+			
 			jettyServer.stop();
 		} catch (Exception e) {
-			log.error(e.getMessage(), e);
+			//log.error(e.getMessage(), e);
+			throw new Exception(e.getMessage(), e);
 		}
 	}
 
@@ -159,10 +204,7 @@ public class JettyApplication implements Serviceable, Application {
 		if (jettyServer != null) {
 
 			try {
-		
-				//webapp.destroy();
 				jettyServer.destroy();
-			
 				if(enableLeakPreventor){
 					for(ClassLoaderLeakPreventor classLoaderLeakPreventor : classLoaderLeakPreventors){
 						classLoaderLeakPreventor.runCleanUps();
@@ -170,7 +212,8 @@ public class JettyApplication implements Serviceable, Application {
 				}
 				
 			} catch (Throwable t) {
-				log.error(t.getMessage(), t);
+				//log.error(t.getMessage(), t);
+				throw new ApplicationException(t.getMessage(), t);
 			}
 		}
 	}
@@ -182,7 +225,7 @@ public class JettyApplication implements Serviceable, Application {
 		int port = context.getIntProperty("port");
 		log.debug("port = " + port);
 		
-		Connector connector = null;
+		ServerConnector connector = null;
 		if(https){
 			
 			String keystoreFile = context.getProperty("keystoreFile");
@@ -190,24 +233,44 @@ public class JettyApplication implements Serviceable, Application {
 			String truststoreFile = context.getProperty("truststoreFile");
 			String truststorePass = context.getProperty("truststorePass");
 	     
-			SslSelectChannelConnector sslConnector = new SslSelectChannelConnector();
-	     	sslConnector.setPort(port);
+			HttpConfiguration httpsConfig = new HttpConfiguration();
+			httpsConfig.setSecureScheme("https");
+	        httpsConfig.setSecurePort(port);
+	        
+			/*
+	     	connector.setPort(port);
 	        SslContextFactory cf = sslConnector.getSslContextFactory();
 	        if(keystoreFile != null) cf.setKeyStorePath(keystoreFile);
 	        if(keystorePass != null) cf.setKeyStorePassword(keystorePass);
 	        if(truststoreFile != null) cf.setTrustStore(truststoreFile);
 	        if(truststorePass != null) cf.setTrustStorePassword(truststorePass);
-	        return sslConnector;
+	        //return sslConnector;
+	        */
+			
+			SslContextFactory sslContextFactory = new SslContextFactory();
+			sslContextFactory.setKeyStorePath(keystoreFile);
+	        sslContextFactory.setKeyStorePassword(keystorePass);
+	        sslContextFactory.setTrustStorePath(truststoreFile);
+	        sslContextFactory.setTrustStorePassword(truststorePass);
+	        
+	        
+			connector = new ServerConnector(jettyServer,
+		            new SslConnectionFactory(sslContextFactory, HttpVersion.HTTP_1_1.asString()),
+		                new HttpConnectionFactory(httpsConfig));
+	        
+			connector.setPort(port);
+
 		}else{
 			
-			connector = new SelectChannelConnector();
+			connector = new ServerConnector(jettyServer);
+			//connector = new SelectChannelConnector();
 			connector.setPort(port);
-			return connector;
 		}
+		return connector;
 	
 	}
 	
-	
+	/*
 	private List<WebAppConfig> getWebAppConfig(ApplicationContext context){
 		
 		List<WebAppConfig> waconfig = new ArrayList<WebAppConfig>();
@@ -217,10 +280,10 @@ public class JettyApplication implements Serviceable, Application {
 		if (docBase == null) {
 			docBase = context.getContextDir() + "/web";
 		}
-		
+		docBase = getAbsoluteDocBaseDir(docBase);
 		String contextPath = context.getProperty("context_path");
-		//log.debug("contextPath = " + contextPath);
-
+		log.debug("contextPath = " + contextPath);
+		
 		waconfig.add(new WebAppConfig(docBase, contextPath));
 		
 		String contextPathKeyPrefix = "context_path_";
@@ -233,20 +296,27 @@ public class JettyApplication implements Serviceable, Application {
 			String tail = contextPathKey.substring(13);
 			String scontextPath = context.getProperty(contextPathKey);
 			String sdocBase = context.getProperty(docBaseKeyPrefix+tail);
-			
+			sdocBase = getAbsoluteDocBaseDir(sdocBase);
 			//docBase가 설정되지 않으면 기본 docbase 할당
 			if(sdocBase == null) {
 				sdocBase = docBase;
 			}
 			waconfig.add(new WebAppConfig(sdocBase, scontextPath));
-			
 		}
 		
 		return waconfig;
 	}
 	
 	
-	
+	private String getAbsoluteDocBaseDir(String inputDocBaseDir){
+		String docBaseDir = inputDocBaseDir;
+		File f = new File(inputDocBaseDir);
+		if(!f.isAbsolute()){
+			String appDir = appContext.getContextDir();
+			docBaseDir = appDir + inputDocBaseDir;
+		}
+		return docBaseDir;
+	}
 	
 	private static class WebAppConfig {
 		
@@ -272,8 +342,8 @@ public class JettyApplication implements Serviceable, Application {
 			return "WebAppConfig [contextPath=" + contextPath + ", docBase="
 					+ docBase + "]";
 		}
-
 	
 	}
+	*/
 	
 }

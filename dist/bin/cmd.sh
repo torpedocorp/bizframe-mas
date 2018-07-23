@@ -11,7 +11,7 @@
 
 MAS_HOME=../
 
-MAS_CLASSPATH=$MAS_HOME/bin/bizframe-mas-command-1.0.0.jar
+MAS_CLASSPATH=$MAS_HOME/bin/bizframe-mas-command-2.0.0.jar
 
 
 echo Start BizFrame MAS command tool 

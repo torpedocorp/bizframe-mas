@@ -8,9 +8,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-//import kr.co.bizframe.mas.conf.MasConfig;
+import kr.co.bizframe.mas.conf.MasConfig;
 
-//import org.apache.log4j.Logger;
 
 /**
  *
@@ -19,20 +18,49 @@ import java.net.Socket;
  */
 public class CommandInvoker {
 
-	//private static Logger log = Logger.getLogger(CommandInvoker.class);
+	public static String DEFAULT_HOST = "127.0.0.1";
+	
+	public static int DEFAULT_PORT = 9091;
 
-	public CommandResponse invoke(Command command) throws Exception{
-		//int port = MasConfig.getServer().getPort();
-		//int timeout = MasConfig.getServer().getTimeout();
-		return invoke("127.0.0.1", 9004, 0, command);
+	public static int DEFALUT_TIMEOUT = 100000;
+	
+	private String host = DEFAULT_HOST;
+	
+	private int port = DEFAULT_PORT;
+	
+	private int timeout = DEFALUT_TIMEOUT;
+	
+	
+	public CommandInvoker(){
 	}
-
+	
+	
+	public CommandInvoker(String host, int port){
+		this.host = host;
+		this.port = port;
+	}
+	
+	public CommandInvoker(String host, int port, int timeout){
+		this.host = host;
+		this.port = port;
+		this.timeout = timeout;
+	}
+	
+	/*
+	public CommandResponse invoke(Command command) throws Exception{
+		return invoke(DEFAULT_HOST, DEFAULT_PORT, DEFAULT_TIMEOUT, command);
+	}
+	*/
+	
+	
+	/*
 	public CommandResponse invoke(String host, int port, Command command) throws Exception{
 		return invoke(host, port, 0, command);
 	}
+	*/
+	
 
-
-	public CommandResponse invoke(String host, int port, int timeout, Command command) throws Exception {
+	public CommandResponse invoke(Command command) throws Exception {
 
 		//log.debug("request = " + command);
 		CommandResponse cr = null;
@@ -52,7 +80,8 @@ public class CommandInvoker {
 
 		} catch (Exception e) {
 			//log.error("command error : ", e);
-			throw e;
+			String error = "host=["+host +"], port=["+port+"] has problem.!";
+			throw new Exception(error, e);
 		} finally {
 			try {
 				if (oos != null) {

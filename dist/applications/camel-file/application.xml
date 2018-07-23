@@ -1,0 +1,9 @@
+<application>
+	<id>camel-file</id>
+	<name>camel-file</name>
+	<load-class>kr.co.bizframe.mas.camel.CamelApplication</load-class>
+	<params>
+		<param key="test" value="test" ></param>
+		<param key="test2" value="test2"></param>
+ 	</params>
+</application>

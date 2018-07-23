@@ -17,7 +17,7 @@
 
 	<property file="./build.properties"/>
 	<property name="product.name" value="bizframe-mas"/>
-	<property name="product.version" value="1.0.0"/>
+	<property name="product.version" value="2.0.0"/>
 	<property name="year" value="2014"/>
 
 	<property name="jar.name" value="${product.name}-${product.version}.jar"/>
@@ -28,9 +28,6 @@
 	<!-- Build classpath 													 -->
 	<!-- =================================================================== -->
 	<path id="classpath">
-		<fileset dir="${basedir}/lib">
-			<include name="**/*.jar"/>
-		</fileset>
 		<fileset dir="${basedir}/dist/lib/system">
 				<include name="**/*.jar"/>
 		</fileset>
@@ -74,8 +71,6 @@
 				deprecation="on"
 				encoding="UTF-8"
 				optimize="on"
-				source="1.5"
-				target="1.5"
 				classpath="${build.classpath}">
 			</javac>
 

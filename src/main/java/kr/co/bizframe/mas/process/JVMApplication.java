@@ -12,13 +12,12 @@ import org.apache.commons.exec.PumpStreamHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import kr.co.bizframe.mas.Application;
-import kr.co.bizframe.mas.application.ApplicationContext;
-import kr.co.bizframe.mas.application.ApplicationException;
-
 import com.sun.jna.Pointer;
 import com.sun.jna.platform.win32.Kernel32;
 import com.sun.jna.platform.win32.WinNT;
+
+import kr.co.bizframe.mas.application.ApplicationContext;
+import kr.co.bizframe.mas.application.ApplicationException;
 
 public class JVMApplication implements ProcessApplication {
 

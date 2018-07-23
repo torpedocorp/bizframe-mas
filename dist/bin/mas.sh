@@ -27,6 +27,8 @@ elif   [ $1 = "run" ]; then
   CMD_LINE_ARGS="start"
 elif [ $1 = "shutdown" ]; then
   CMD_LINE_ARGS=$1
+else
+ CMD_LINE_ARGS=$1
 fi
 
 
@@ -36,7 +38,7 @@ if [ -z "$JAVA_HOME" ]; then
 fi
 
 if [ $1 = "start" ]; then
-$JAVA_HOME/bin/java -classpath $MAS_CLASSPATH kr.co.bizframe.mas.boot.Main $CMD_LINE_ARGS &
+nohup $JAVA_HOME/bin/java -classpath $MAS_CLASSPATH kr.co.bizframe.mas.boot.Main $CMD_LINE_ARGS > /dev/null 2>&1 & 
 else
 $JAVA_HOME/bin/java -classpath $MAS_CLASSPATH kr.co.bizframe.mas.boot.Main $CMD_LINE_ARGS
 fi

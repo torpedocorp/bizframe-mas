@@ -3,25 +3,68 @@
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="src" path="src/example/java"/>
 	<classpathentry kind="src" path="src/test/java"/>
-	<classpathentry kind="lib" path="dist/lib/system/bizframe-commons-1.1.2.jar"/>
-	<classpathentry kind="lib" path="dist/lib/system/bizframe-mas-1.0.0.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.8.0_121"/>
 	<classpathentry kind="lib" path="dist/lib/system/jdom.jar"/>
-	<classpathentry kind="lib" path="dist/lib/extended/bizframe-cdi-1.0.0.jar"/>
-	<classpathentry kind="lib" path="dist/lib/extended/jetty-server-7.6.1.v20120215.jar"/>
-	<classpathentry kind="lib" path="dist/lib/extended/jetty-http-7.6.1.v20120215.jar"/>
-	<classpathentry kind="lib" path="dist/lib/extended/jetty-util-7.6.1.v20120215.jar"/>
-	<classpathentry kind="lib" path="dist/lib/extended/jetty-webapp-7.6.1.v20120215.jar"/>
-	<classpathentry kind="lib" path="dist/lib/extended/jetty-servlet-7.6.1.v20120215.jar"/>
-	<classpathentry kind="lib" path="dist/lib/system/activation.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.6.0_45"/>
-	<classpathentry kind="lib" path="dist/lib/system/bizframe-cache-1.0.0.jar"/>
-	<classpathentry kind="lib" path="dist/lib/extended/servlet-api.jar"/>
-	<classpathentry kind="lib" path="dist/lib/system/logback-access-1.1.8.jar"/>
-	<classpathentry kind="lib" path="dist/lib/system/logback-classic-1.1.8.jar"/>
-	<classpathentry kind="lib" path="dist/lib/system/logback-core-1.1.8.jar"/>
 	<classpathentry kind="lib" path="dist/lib/system/slf4j-api-1.7.22.jar"/>
-	<classpathentry kind="lib" path="dist/lib/extended/jna-platform.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/activation.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/servlet-api-3.1.jar"/>
 	<classpathentry kind="lib" path="dist/lib/extended/commons-exec-1.3.jar" sourcepath="C:/Users/배영준/AppData/Local/Temp/.org.sf.feeling.decompiler1529320454508/source/commons-exec-1.3-sources.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/camel/camel-core-2.21.1.jar" sourcepath="C:/Users/배영준/AppData/Local/Temp/.org.sf.feeling.decompiler1530773483836/source/camel-core-2.21.1-sources.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/camel/camel-spring-2.21.1.jar" sourcepath="C:/Users/배영준/AppData/Local/Temp/.org.sf.feeling.decompiler1530773483836/source/camel-spring-2.21.1-sources.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/jetty/jetty-schemas-3.1.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/commons-codec-1.10.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/commons-logging-1.1.3.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/jna-platform.jar"/>
 	<classpathentry kind="lib" path="dist/lib/extended/jna.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/tomcat/annotations-api.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/tomcat/ecj-4.6.3.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/tomcat/tomcat-dbcp.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/tomcat/tomcat-embed-core.jar" sourcepath="C:/Users/배영준/AppData/Local/Temp/.org.sf.feeling.decompiler1529979119498/source/tomcat-embed-core-8.5.31-sources.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/tomcat/tomcat-embed-el.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/tomcat/tomcat-embed-jasper.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/tomcat/tomcat-embed-websocket.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/jetty/alpn-api-1.1.3.v20160715.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/jetty/cdi-2-9.4.11.v20180605.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/jetty/cdi-core-9.4.11.v20180605.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/jetty/cdi-servlet-9.4.11.v20180605.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/jetty/jetty-alpn-conscrypt-server-9.4.11.v20180605.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/jetty/jetty-alpn-java-server-9.4.11.v20180605.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/jetty/jetty-alpn-openjdk8-server-9.4.11.v20180605.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/jetty/jetty-alpn-server-9.4.11.v20180605.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/jetty/jetty-annotations-9.4.11.v20180605.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/jetty/jetty-client-9.4.11.v20180605.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/jetty/jetty-continuation-9.4.11.v20180605.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/jetty/jetty-deploy-9.4.11.v20180605.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/jetty/jetty-gcloud-session-manager-9.4.11.v20180605.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/jetty/jetty-hazelcast-9.4.11.v20180605.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/jetty/jetty-http-9.4.11.v20180605.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/jetty/jetty-infinispan-9.4.11.v20180605.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/jetty/jetty-io-9.4.11.v20180605.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/jetty/jetty-jaas-9.4.11.v20180605.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/jetty/jetty-jaspi-9.4.11.v20180605.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/jetty/jetty-jmx-9.4.11.v20180605.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/jetty/jetty-jndi-9.4.11.v20180605.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/jetty/jetty-memcached-sessions-9.4.11.v20180605.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/jetty/jetty-nosql-9.4.11.v20180605.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/jetty/jetty-plus-9.4.11.v20180605.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/jetty/jetty-proxy-9.4.11.v20180605.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/jetty/jetty-quickstart-9.4.11.v20180605.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/jetty/jetty-rewrite-9.4.11.v20180605.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/jetty/jetty-security-9.4.11.v20180605.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/jetty/jetty-server-9.4.11.v20180605.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/jetty/jetty-servlet-9.4.11.v20180605.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/jetty/jetty-servlets-9.4.11.v20180605.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/jetty/jetty-unixsocket-9.4.11.v20180605.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/jetty/jetty-util-9.4.11.v20180605.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/jetty/jetty-webapp-9.4.11.v20180605.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/jetty/jetty-xml-9.4.11.v20180605.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/spring/spring-aop-4.3.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/spring/spring-beans-4.3.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/spring/spring-context-4.3.0.RELEASE.jar" sourcepath="C:/Users/배영준/AppData/Local/Temp/.org.sf.feeling.decompiler1530773483836/source/spring-context-4.3.0.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/spring/spring-core-4.3.0.RELEASE.jar" sourcepath="C:/Users/배영준/AppData/Local/Temp/.org.sf.feeling.decompiler1530773483836/source/spring-core-4.3.0.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/spring/spring-expression-4.3.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/spring/spring-web-4.3.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="dist/lib/extended/spring/spring-webmvc-4.3.0.RELEASE.jar"/>
+	<classpathentry kind="lib" path="dist/lib/system/commons-io-2.6.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

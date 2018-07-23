@@ -4,6 +4,8 @@ public class EngineDef {
 
 	private String id;
 
+	private boolean hotDeploy = false;
+	
 	private RoutingDef routing;
 
 	private ApplicationsDef applications;
@@ -14,6 +16,15 @@ public class EngineDef {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+	
+	
+	public boolean isHotDeploy() {
+		return hotDeploy;
+	}
+
+	public void setHotDeploy(boolean hotDeploy) {
+		this.hotDeploy = hotDeploy;
 	}
 
 	public RoutingDef getRouting() {

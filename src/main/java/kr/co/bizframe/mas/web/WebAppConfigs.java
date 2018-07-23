@@ -80,14 +80,15 @@ public class WebAppConfigs {
 	}
 	
 	
-	private static  String getAbsoluteDocBaseDir(ApplicationContext context, String inputDocBaseDir){
+	private static String getAbsoluteDocBaseDir(ApplicationContext context, String inputDocBaseDir){
 		String docBaseDir = inputDocBaseDir;
 		File f = new File(inputDocBaseDir);
 		if(!f.isAbsolute()){
 			String appDir = context.getContextDir();
-			docBaseDir = appDir + inputDocBaseDir;
+			docBaseDir = appDir + "/"+ inputDocBaseDir;
+			f = new File(docBaseDir);
 		}
-		return docBaseDir;
+		return f.getAbsolutePath();
 	}
 	
 

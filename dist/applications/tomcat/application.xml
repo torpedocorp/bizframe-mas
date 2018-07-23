@@ -1,0 +1,10 @@
+<application>
+	<id>tomcat-app</id>
+	<name>tomcat-app</name>
+	<load-class>kr.co.bizframe.mas.web.TomcatApplication</load-class>
+	<params>
+		<param key="port" value="8080" />
+		<param key="context_path" value="/spring"/>
+		<param key="doc_base" value="./context"/>
+ 	</params>
+</application>
