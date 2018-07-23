@@ -1,0 +1,441 @@
+2014-02-14 15:58:42,579 ERROR MasServer [main]: 
+java.lang.NullPointerException
+	at kr.co.bizframe.mas.application.ApplicationManager.load(ApplicationManager.java:56)
+	at kr.co.bizframe.mas.core.MasEngine.startup(MasEngine.java:46)
+	at kr.co.bizframe.mas.core.MasServer.start0(MasServer.java:66)
+	at kr.co.bizframe.mas.core.MasServer.start(MasServer.java:46)
+	at kr.co.bizframe.mas.boot.Bootstrap.start(Bootstrap.java:13)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:585)
+	at kr.co.bizframe.mas.boot.Main.runTask(Main.java:87)
+	at kr.co.bizframe.mas.boot.Main.execute(Main.java:58)
+	at kr.co.bizframe.mas.boot.Main.main(Main.java:37)
+2014-02-14 16:10:57,867 ERROR MasEngine [Thread-0]: cannot shutdown engine : engine status=[STARTING]
+2014-02-14 16:11:40,396 ERROR MasEngine [Thread-0]: cannot shutdown engine : engine status=[STARTING]
+2014-02-14 16:15:03,930 ERROR MasEngine [Thread-0]: cannot shutdown engine : engine status=[STARTING]
+2014-02-14 16:15:48,756 ERROR MasEngine [Thread-0]: cannot shutdown engine : engine status=[STARTING]
+2014-02-14 16:19:20,679 ERROR MasEngine [Thread-0]: cannot shutdown engine : engine status=[STARTING]
+2014-02-14 16:24:10,037 ERROR MasEngine [Thread-0]: cannot shutdown engine : engine status=[STARTING]
+2014-02-14 16:24:41,420 ERROR MasEngine [Thread-0]: cannot shutdown engine : engine status=[STARTING]
+2014-02-14 16:27:48,516 ERROR MasEngine [Thread-0]: cannot shutdown engine : engine status=[STARTING]
+2014-02-14 16:28:04,134 ERROR MasEngine [Thread-0]: cannot shutdown engine : engine status=[STARTING]
+2014-02-14 16:32:34,997 ERROR MasEngine [main]: cannot load application=[test]
+java.lang.Exception: cannot load application=[test]
+	at kr.co.bizframe.mas.application.ApplicationManager.load0(ApplicationManager.java:80)
+	at kr.co.bizframe.mas.application.ApplicationManager.load(ApplicationManager.java:52)
+	at kr.co.bizframe.mas.core.MasEngine.startup(MasEngine.java:47)
+	at kr.co.bizframe.mas.core.MasServer.start0(MasServer.java:66)
+	at kr.co.bizframe.mas.core.MasServer.start(MasServer.java:46)
+	at kr.co.bizframe.mas.boot.Bootstrap.start(Bootstrap.java:20)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:585)
+	at kr.co.bizframe.mas.boot.Main.runTask(Main.java:87)
+	at kr.co.bizframe.mas.boot.Main.execute(Main.java:58)
+	at kr.co.bizframe.mas.boot.Main.main(Main.java:37)
+Caused by: java.lang.Exception: kr.co.bizframe.mas.test.SimpleApp1
+	at kr.co.bizframe.mas.application.ApplicationManager.createManagedApplication(ApplicationManager.java:178)
+	at kr.co.bizframe.mas.application.ApplicationManager.load0(ApplicationManager.java:76)
+	... 12 more
+Caused by: java.lang.ClassNotFoundException: kr.co.bizframe.mas.test.SimpleApp1
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:200)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:188)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:306)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:251)
+	at kr.co.bizframe.mas.application.ApplicationManager.createManagedApplication(ApplicationManager.java:173)
+	... 13 more
+2014-02-14 16:32:34,997 ERROR MasServer [main]: java.lang.Exception: cannot load application=[test]
+java.lang.Exception: java.lang.Exception: cannot load application=[test]
+	at kr.co.bizframe.mas.core.MasEngine.startup(MasEngine.java:52)
+	at kr.co.bizframe.mas.core.MasServer.start0(MasServer.java:66)
+	at kr.co.bizframe.mas.core.MasServer.start(MasServer.java:46)
+	at kr.co.bizframe.mas.boot.Bootstrap.start(Bootstrap.java:20)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:585)
+	at kr.co.bizframe.mas.boot.Main.runTask(Main.java:87)
+	at kr.co.bizframe.mas.boot.Main.execute(Main.java:58)
+	at kr.co.bizframe.mas.boot.Main.main(Main.java:37)
+Caused by: java.lang.Exception: cannot load application=[test]
+	at kr.co.bizframe.mas.application.ApplicationManager.load0(ApplicationManager.java:80)
+	at kr.co.bizframe.mas.application.ApplicationManager.load(ApplicationManager.java:52)
+	at kr.co.bizframe.mas.core.MasEngine.startup(MasEngine.java:47)
+	... 10 more
+Caused by: java.lang.Exception: kr.co.bizframe.mas.test.SimpleApp1
+	at kr.co.bizframe.mas.application.ApplicationManager.createManagedApplication(ApplicationManager.java:178)
+	at kr.co.bizframe.mas.application.ApplicationManager.load0(ApplicationManager.java:76)
+	... 12 more
+Caused by: java.lang.ClassNotFoundException: kr.co.bizframe.mas.test.SimpleApp1
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:200)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:188)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:306)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:251)
+	at kr.co.bizframe.mas.application.ApplicationManager.createManagedApplication(ApplicationManager.java:173)
+	... 13 more
+2014-02-14 16:33:24,694 ERROR MasEngine [main]: cannot load application=[test]
+java.lang.Exception: cannot load application=[test]
+	at kr.co.bizframe.mas.application.ApplicationManager.load0(ApplicationManager.java:80)
+	at kr.co.bizframe.mas.application.ApplicationManager.load(ApplicationManager.java:52)
+	at kr.co.bizframe.mas.core.MasEngine.startup(MasEngine.java:47)
+	at kr.co.bizframe.mas.core.MasServer.start0(MasServer.java:66)
+	at kr.co.bizframe.mas.core.MasServer.start(MasServer.java:46)
+	at kr.co.bizframe.mas.boot.Bootstrap.start(Bootstrap.java:20)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:585)
+	at kr.co.bizframe.mas.boot.Main.runTask(Main.java:87)
+	at kr.co.bizframe.mas.boot.Main.execute(Main.java:58)
+	at kr.co.bizframe.mas.boot.Main.main(Main.java:37)
+Caused by: java.lang.Exception: kr.co.bizframe.mas.test.SimpleApp1
+	at kr.co.bizframe.mas.application.ApplicationManager.createManagedApplication(ApplicationManager.java:177)
+	at kr.co.bizframe.mas.application.ApplicationManager.load0(ApplicationManager.java:76)
+	... 12 more
+Caused by: java.lang.ClassNotFoundException: kr.co.bizframe.mas.test.SimpleApp1
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:200)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:188)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:306)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:251)
+	at kr.co.bizframe.mas.application.ApplicationManager.createManagedApplication(ApplicationManager.java:173)
+	... 13 more
+2014-02-14 16:33:24,710 ERROR MasServer [main]: java.lang.Exception: cannot load application=[test]
+java.lang.Exception: java.lang.Exception: cannot load application=[test]
+	at kr.co.bizframe.mas.core.MasEngine.startup(MasEngine.java:52)
+	at kr.co.bizframe.mas.core.MasServer.start0(MasServer.java:66)
+	at kr.co.bizframe.mas.core.MasServer.start(MasServer.java:46)
+	at kr.co.bizframe.mas.boot.Bootstrap.start(Bootstrap.java:20)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:585)
+	at kr.co.bizframe.mas.boot.Main.runTask(Main.java:87)
+	at kr.co.bizframe.mas.boot.Main.execute(Main.java:58)
+	at kr.co.bizframe.mas.boot.Main.main(Main.java:37)
+Caused by: java.lang.Exception: cannot load application=[test]
+	at kr.co.bizframe.mas.application.ApplicationManager.load0(ApplicationManager.java:80)
+	at kr.co.bizframe.mas.application.ApplicationManager.load(ApplicationManager.java:52)
+	at kr.co.bizframe.mas.core.MasEngine.startup(MasEngine.java:47)
+	... 10 more
+Caused by: java.lang.Exception: kr.co.bizframe.mas.test.SimpleApp1
+	at kr.co.bizframe.mas.application.ApplicationManager.createManagedApplication(ApplicationManager.java:177)
+	at kr.co.bizframe.mas.application.ApplicationManager.load0(ApplicationManager.java:76)
+	... 12 more
+Caused by: java.lang.ClassNotFoundException: kr.co.bizframe.mas.test.SimpleApp1
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:200)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:188)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:306)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:251)
+	at kr.co.bizframe.mas.application.ApplicationManager.createManagedApplication(ApplicationManager.java:173)
+	... 13 more
+2014-02-14 17:45:27,818 ERROR MasEngine [main]: 
+java.lang.IllegalArgumentException
+	at kr.co.bizframe.mas.application.ApplicationType.valueFor(ApplicationType.java:29)
+	at kr.co.bizframe.mas.conf.ApplicationConfig.parse(ApplicationConfig.java:26)
+	at kr.co.bizframe.mas.application.ApplicationManager.load(ApplicationManager.java:50)
+	at kr.co.bizframe.mas.core.MasEngine.startup(MasEngine.java:47)
+	at kr.co.bizframe.mas.core.MasServer.start0(MasServer.java:66)
+	at kr.co.bizframe.mas.core.MasServer.start(MasServer.java:46)
+	at kr.co.bizframe.mas.boot.Bootstrap.start(Bootstrap.java:20)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:585)
+	at kr.co.bizframe.mas.boot.Main.runTask(Main.java:87)
+	at kr.co.bizframe.mas.boot.Main.execute(Main.java:58)
+	at kr.co.bizframe.mas.boot.Main.main(Main.java:37)
+2014-02-14 17:45:27,818 ERROR MasServer [main]: java.lang.IllegalArgumentException
+java.lang.Exception: java.lang.IllegalArgumentException
+	at kr.co.bizframe.mas.core.MasEngine.startup(MasEngine.java:52)
+	at kr.co.bizframe.mas.core.MasServer.start0(MasServer.java:66)
+	at kr.co.bizframe.mas.core.MasServer.start(MasServer.java:46)
+	at kr.co.bizframe.mas.boot.Bootstrap.start(Bootstrap.java:20)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:585)
+	at kr.co.bizframe.mas.boot.Main.runTask(Main.java:87)
+	at kr.co.bizframe.mas.boot.Main.execute(Main.java:58)
+	at kr.co.bizframe.mas.boot.Main.main(Main.java:37)
+Caused by: java.lang.IllegalArgumentException
+	at kr.co.bizframe.mas.application.ApplicationType.valueFor(ApplicationType.java:29)
+	at kr.co.bizframe.mas.conf.ApplicationConfig.parse(ApplicationConfig.java:26)
+	at kr.co.bizframe.mas.application.ApplicationManager.load(ApplicationManager.java:50)
+	at kr.co.bizframe.mas.core.MasEngine.startup(MasEngine.java:47)
+	... 10 more
+2014-02-14 17:46:29,073 ERROR MasEngine [main]: application type=[null] is not valid.
+java.lang.IllegalArgumentException: application type=[null] is not valid.
+	at kr.co.bizframe.mas.application.ApplicationType.valueFor(ApplicationType.java:29)
+	at kr.co.bizframe.mas.conf.ApplicationConfig.parse(ApplicationConfig.java:26)
+	at kr.co.bizframe.mas.application.ApplicationManager.load(ApplicationManager.java:50)
+	at kr.co.bizframe.mas.core.MasEngine.startup(MasEngine.java:47)
+	at kr.co.bizframe.mas.core.MasServer.start0(MasServer.java:66)
+	at kr.co.bizframe.mas.core.MasServer.start(MasServer.java:46)
+	at kr.co.bizframe.mas.boot.Bootstrap.start(Bootstrap.java:20)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:585)
+	at kr.co.bizframe.mas.boot.Main.runTask(Main.java:87)
+	at kr.co.bizframe.mas.boot.Main.execute(Main.java:58)
+	at kr.co.bizframe.mas.boot.Main.main(Main.java:37)
+2014-02-14 17:46:29,073 ERROR MasServer [main]: java.lang.IllegalArgumentException: application type=[null] is not valid.
+java.lang.Exception: java.lang.IllegalArgumentException: application type=[null] is not valid.
+	at kr.co.bizframe.mas.core.MasEngine.startup(MasEngine.java:52)
+	at kr.co.bizframe.mas.core.MasServer.start0(MasServer.java:66)
+	at kr.co.bizframe.mas.core.MasServer.start(MasServer.java:46)
+	at kr.co.bizframe.mas.boot.Bootstrap.start(Bootstrap.java:20)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:585)
+	at kr.co.bizframe.mas.boot.Main.runTask(Main.java:87)
+	at kr.co.bizframe.mas.boot.Main.execute(Main.java:58)
+	at kr.co.bizframe.mas.boot.Main.main(Main.java:37)
+Caused by: java.lang.IllegalArgumentException: application type=[null] is not valid.
+	at kr.co.bizframe.mas.application.ApplicationType.valueFor(ApplicationType.java:29)
+	at kr.co.bizframe.mas.conf.ApplicationConfig.parse(ApplicationConfig.java:26)
+	at kr.co.bizframe.mas.application.ApplicationManager.load(ApplicationManager.java:50)
+	at kr.co.bizframe.mas.core.MasEngine.startup(MasEngine.java:47)
+	... 10 more
+2014-02-14 17:47:53,958 ERROR MasEngine [main]: application type=[null] is not valid.
+java.lang.IllegalArgumentException: application type=[null] is not valid.
+	at kr.co.bizframe.mas.application.ApplicationType.valueFor(ApplicationType.java:29)
+	at kr.co.bizframe.mas.conf.ApplicationConfig.parse(ApplicationConfig.java:26)
+	at kr.co.bizframe.mas.application.ApplicationManager.load(ApplicationManager.java:50)
+	at kr.co.bizframe.mas.core.MasEngine.startup(MasEngine.java:47)
+	at kr.co.bizframe.mas.core.MasServer.start0(MasServer.java:66)
+	at kr.co.bizframe.mas.core.MasServer.start(MasServer.java:46)
+	at kr.co.bizframe.mas.boot.Bootstrap.start(Bootstrap.java:20)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:585)
+	at kr.co.bizframe.mas.boot.Main.runTask(Main.java:87)
+	at kr.co.bizframe.mas.boot.Main.execute(Main.java:58)
+	at kr.co.bizframe.mas.boot.Main.main(Main.java:37)
+2014-02-14 17:47:53,958 ERROR MasServer [main]: java.lang.IllegalArgumentException: application type=[null] is not valid.
+java.lang.Exception: java.lang.IllegalArgumentException: application type=[null] is not valid.
+	at kr.co.bizframe.mas.core.MasEngine.startup(MasEngine.java:52)
+	at kr.co.bizframe.mas.core.MasServer.start0(MasServer.java:66)
+	at kr.co.bizframe.mas.core.MasServer.start(MasServer.java:46)
+	at kr.co.bizframe.mas.boot.Bootstrap.start(Bootstrap.java:20)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:585)
+	at kr.co.bizframe.mas.boot.Main.runTask(Main.java:87)
+	at kr.co.bizframe.mas.boot.Main.execute(Main.java:58)
+	at kr.co.bizframe.mas.boot.Main.main(Main.java:37)
+Caused by: java.lang.IllegalArgumentException: application type=[null] is not valid.
+	at kr.co.bizframe.mas.application.ApplicationType.valueFor(ApplicationType.java:29)
+	at kr.co.bizframe.mas.conf.ApplicationConfig.parse(ApplicationConfig.java:26)
+	at kr.co.bizframe.mas.application.ApplicationManager.load(ApplicationManager.java:50)
+	at kr.co.bizframe.mas.core.MasEngine.startup(MasEngine.java:47)
+	... 10 more
+2014-02-14 17:49:11,811 ERROR ApplicationManager [main]: application type=[null] is not valid.
+java.lang.IllegalArgumentException: application type=[null] is not valid.
+	at kr.co.bizframe.mas.application.ApplicationType.valueFor(ApplicationType.java:29)
+	at kr.co.bizframe.mas.conf.ApplicationConfig.parse(ApplicationConfig.java:26)
+	at kr.co.bizframe.mas.application.ApplicationManager.load(ApplicationManager.java:51)
+	at kr.co.bizframe.mas.core.MasEngine.startup(MasEngine.java:47)
+	at kr.co.bizframe.mas.core.MasServer.start0(MasServer.java:66)
+	at kr.co.bizframe.mas.core.MasServer.start(MasServer.java:46)
+	at kr.co.bizframe.mas.boot.Bootstrap.start(Bootstrap.java:20)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:585)
+	at kr.co.bizframe.mas.boot.Main.runTask(Main.java:87)
+	at kr.co.bizframe.mas.boot.Main.execute(Main.java:58)
+	at kr.co.bizframe.mas.boot.Main.main(Main.java:37)
+2014-02-14 17:49:11,811 ERROR ApplicationManager [main]: cannot load application=[test]
+java.lang.Exception: cannot load application=[test]
+	at kr.co.bizframe.mas.application.ApplicationManager.load0(ApplicationManager.java:85)
+	at kr.co.bizframe.mas.application.ApplicationManager.load(ApplicationManager.java:54)
+	at kr.co.bizframe.mas.core.MasEngine.startup(MasEngine.java:47)
+	at kr.co.bizframe.mas.core.MasServer.start0(MasServer.java:66)
+	at kr.co.bizframe.mas.core.MasServer.start(MasServer.java:46)
+	at kr.co.bizframe.mas.boot.Bootstrap.start(Bootstrap.java:20)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:585)
+	at kr.co.bizframe.mas.boot.Main.runTask(Main.java:87)
+	at kr.co.bizframe.mas.boot.Main.execute(Main.java:58)
+	at kr.co.bizframe.mas.boot.Main.main(Main.java:37)
+Caused by: java.lang.Exception: kr.co.bizframe.mas.test.SimpleApp1
+	at kr.co.bizframe.mas.application.ApplicationManager.createManagedApplication(ApplicationManager.java:185)
+	at kr.co.bizframe.mas.application.ApplicationManager.load0(ApplicationManager.java:81)
+	... 12 more
+Caused by: java.lang.ClassNotFoundException: kr.co.bizframe.mas.test.SimpleApp1
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:200)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:188)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:306)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:251)
+	at kr.co.bizframe.mas.application.ApplicationManager.createManagedApplication(ApplicationManager.java:181)
+	... 13 more
+2014-02-14 17:49:49,500 ERROR ApplicationManager [main]: application type=[null] is not valid.
+java.lang.IllegalArgumentException: application type=[null] is not valid.
+	at kr.co.bizframe.mas.application.ApplicationType.valueFor(ApplicationType.java:29)
+	at kr.co.bizframe.mas.conf.ApplicationConfig.parse(ApplicationConfig.java:26)
+	at kr.co.bizframe.mas.application.ApplicationManager.load(ApplicationManager.java:51)
+	at kr.co.bizframe.mas.core.MasEngine.startup(MasEngine.java:47)
+	at kr.co.bizframe.mas.core.MasServer.start0(MasServer.java:66)
+	at kr.co.bizframe.mas.core.MasServer.start(MasServer.java:46)
+	at kr.co.bizframe.mas.boot.Bootstrap.start(Bootstrap.java:20)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:585)
+	at kr.co.bizframe.mas.boot.Main.runTask(Main.java:87)
+	at kr.co.bizframe.mas.boot.Main.execute(Main.java:58)
+	at kr.co.bizframe.mas.boot.Main.main(Main.java:37)
+2014-02-14 17:49:49,500 ERROR ApplicationManager [main]: cannot load application=[test2]
+java.lang.Exception: cannot load application=[test2]
+	at kr.co.bizframe.mas.application.ApplicationManager.load0(ApplicationManager.java:85)
+	at kr.co.bizframe.mas.application.ApplicationManager.load(ApplicationManager.java:54)
+	at kr.co.bizframe.mas.core.MasEngine.startup(MasEngine.java:47)
+	at kr.co.bizframe.mas.core.MasServer.start0(MasServer.java:66)
+	at kr.co.bizframe.mas.core.MasServer.start(MasServer.java:46)
+	at kr.co.bizframe.mas.boot.Bootstrap.start(Bootstrap.java:20)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:585)
+	at kr.co.bizframe.mas.boot.Main.runTask(Main.java:87)
+	at kr.co.bizframe.mas.boot.Main.execute(Main.java:58)
+	at kr.co.bizframe.mas.boot.Main.main(Main.java:37)
+Caused by: java.lang.Exception: kr.co.bizframe.mas.test.SimpleApp1
+	at kr.co.bizframe.mas.application.ApplicationManager.createManagedApplication(ApplicationManager.java:185)
+	at kr.co.bizframe.mas.application.ApplicationManager.load0(ApplicationManager.java:81)
+	... 12 more
+Caused by: java.lang.ClassNotFoundException: kr.co.bizframe.mas.test.SimpleApp1
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:200)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:188)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:306)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:251)
+	at kr.co.bizframe.mas.application.ApplicationManager.createManagedApplication(ApplicationManager.java:181)
+	... 13 more
+2014-02-14 17:51:22,275 ERROR ApplicationManager [main]: application type=[null] is not valid.
+java.lang.IllegalArgumentException: application type=[null] is not valid.
+	at kr.co.bizframe.mas.application.ApplicationType.valueFor(ApplicationType.java:29)
+	at kr.co.bizframe.mas.conf.ApplicationConfig.parse(ApplicationConfig.java:26)
+	at kr.co.bizframe.mas.application.ApplicationManager.load(ApplicationManager.java:52)
+	at kr.co.bizframe.mas.core.MasEngine.startup(MasEngine.java:47)
+	at kr.co.bizframe.mas.core.MasServer.start0(MasServer.java:66)
+	at kr.co.bizframe.mas.core.MasServer.start(MasServer.java:46)
+	at kr.co.bizframe.mas.boot.Bootstrap.start(Bootstrap.java:20)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:585)
+	at kr.co.bizframe.mas.boot.Main.runTask(Main.java:87)
+	at kr.co.bizframe.mas.boot.Main.execute(Main.java:58)
+	at kr.co.bizframe.mas.boot.Main.main(Main.java:37)
+2014-02-14 17:51:22,290 ERROR ApplicationManager [main]: cannot load application=[test2]
+java.lang.Exception: cannot load application=[test2]
+	at kr.co.bizframe.mas.application.ApplicationManager.load0(ApplicationManager.java:86)
+	at kr.co.bizframe.mas.application.ApplicationManager.load(ApplicationManager.java:55)
+	at kr.co.bizframe.mas.core.MasEngine.startup(MasEngine.java:47)
+	at kr.co.bizframe.mas.core.MasServer.start0(MasServer.java:66)
+	at kr.co.bizframe.mas.core.MasServer.start(MasServer.java:46)
+	at kr.co.bizframe.mas.boot.Bootstrap.start(Bootstrap.java:20)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:585)
+	at kr.co.bizframe.mas.boot.Main.runTask(Main.java:87)
+	at kr.co.bizframe.mas.boot.Main.execute(Main.java:58)
+	at kr.co.bizframe.mas.boot.Main.main(Main.java:37)
+Caused by: java.lang.Exception: kr.co.bizframe.mas.test.SimpleApp1
+	at kr.co.bizframe.mas.application.ApplicationManager.createManagedApplication(ApplicationManager.java:186)
+	at kr.co.bizframe.mas.application.ApplicationManager.load0(ApplicationManager.java:82)
+	... 12 more
+Caused by: java.lang.ClassNotFoundException: kr.co.bizframe.mas.test.SimpleApp1
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:200)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:188)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:306)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:251)
+	at kr.co.bizframe.mas.application.ApplicationManager.createManagedApplication(ApplicationManager.java:182)
+	... 13 more
+2014-02-14 17:56:11,702 ERROR ApplicationManager [main]: application type=[null] is not valid.
+java.lang.IllegalArgumentException: application type=[null] is not valid.
+	at kr.co.bizframe.mas.application.ApplicationType.valueFor(ApplicationType.java:29)
+	at kr.co.bizframe.mas.conf.ApplicationConfig.parse(ApplicationConfig.java:26)
+	at kr.co.bizframe.mas.application.ApplicationManager.load(ApplicationManager.java:51)
+	at kr.co.bizframe.mas.core.MasEngine.startup(MasEngine.java:47)
+	at kr.co.bizframe.mas.core.MasServer.start0(MasServer.java:66)
+	at kr.co.bizframe.mas.core.MasServer.start(MasServer.java:46)
+	at kr.co.bizframe.mas.boot.Bootstrap.start(Bootstrap.java:20)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:585)
+	at kr.co.bizframe.mas.boot.Main.runTask(Main.java:87)
+	at kr.co.bizframe.mas.boot.Main.execute(Main.java:58)
+	at kr.co.bizframe.mas.boot.Main.main(Main.java:37)
+2014-02-14 17:56:11,717 ERROR ApplicationManager [main]: cannot load application=[test2]
+java.lang.Exception: cannot load application=[test2]
+	at kr.co.bizframe.mas.application.ApplicationManager.load0(ApplicationManager.java:85)
+	at kr.co.bizframe.mas.application.ApplicationManager.load(ApplicationManager.java:54)
+	at kr.co.bizframe.mas.core.MasEngine.startup(MasEngine.java:47)
+	at kr.co.bizframe.mas.core.MasServer.start0(MasServer.java:66)
+	at kr.co.bizframe.mas.core.MasServer.start(MasServer.java:46)
+	at kr.co.bizframe.mas.boot.Bootstrap.start(Bootstrap.java:20)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:585)
+	at kr.co.bizframe.mas.boot.Main.runTask(Main.java:87)
+	at kr.co.bizframe.mas.boot.Main.execute(Main.java:58)
+	at kr.co.bizframe.mas.boot.Main.main(Main.java:37)
+Caused by: java.lang.Exception: kr.co.bizframe.mas.test.SimpleApp1
+	at kr.co.bizframe.mas.application.ApplicationManager.createManagedApplication(ApplicationManager.java:185)
+	at kr.co.bizframe.mas.application.ApplicationManager.load0(ApplicationManager.java:81)
+	... 12 more
+Caused by: java.lang.ClassNotFoundException: kr.co.bizframe.mas.test.SimpleApp1
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:200)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:188)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:306)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:251)
+	at kr.co.bizframe.mas.application.ApplicationManager.createManagedApplication(ApplicationManager.java:181)
+	... 13 more
+2014-02-14 17:56:38,706 ERROR ApplicationManager [main]: cannot load application=[test1]
+java.lang.Exception: cannot load application=[test1]
+	at kr.co.bizframe.mas.application.ApplicationManager.load0(ApplicationManager.java:85)
+	at kr.co.bizframe.mas.application.ApplicationManager.load(ApplicationManager.java:54)
+	at kr.co.bizframe.mas.core.MasEngine.startup(MasEngine.java:47)
+	at kr.co.bizframe.mas.core.MasServer.start0(MasServer.java:66)
+	at kr.co.bizframe.mas.core.MasServer.start(MasServer.java:46)
+	at kr.co.bizframe.mas.boot.Bootstrap.start(Bootstrap.java:20)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:585)
+	at kr.co.bizframe.mas.boot.Main.runTask(Main.java:87)
+	at kr.co.bizframe.mas.boot.Main.execute(Main.java:58)
+	at kr.co.bizframe.mas.boot.Main.main(Main.java:37)
+Caused by: java.lang.Exception: kr.co.bizframe.mas.test.SimpleApp1
+	at kr.co.bizframe.mas.application.ApplicationManager.createManagedApplication(ApplicationManager.java:185)
+	at kr.co.bizframe.mas.application.ApplicationManager.load0(ApplicationManager.java:81)
+	... 12 more
+Caused by: java.lang.ClassNotFoundException: kr.co.bizframe.mas.test.SimpleApp1
+	at java.net.URLClassLoader$1.run(URLClassLoader.java:200)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:188)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:306)
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:251)
+	at kr.co.bizframe.mas.application.ApplicationManager.createManagedApplication(ApplicationManager.java:181)
+	... 13 more

@@ -1,0 +1,88 @@
+################################################################################
+# BizFrame MXS 3.0
+#
+# MXS Properties File
+#
+################################################################################
+
+# MXS ID #######################################################################
+mxs.id = mxs1
+################################################################################
+
+mxs.msi.chunked.streaming.enable = true
+
+# Authentication ###############################################################
+mxs.msi.authentication = false
+################################################################################
+
+
+# HTTP #########################################################################
+mxs.http.connection.timeout = 180000
+mxs.http.timeout = 180000
+################################################################################
+
+
+# File Storage #################################################################
+mxs.file.storage = C:/ecm/data/mxs
+mxs.files.per.directory = 100
+################################################################################
+
+# Signature Executor ###########################################################
+mxs.eb.signature.executor = kr.co.bizframe.ecf.plugins.EbSignature
+mxs.eb.hash.function = http://www.w3.org/2000/09/xmldsig#sha1
+mxs.eb.signature.algorithm = http://www.w3.org/2000/09/xmldsig#rsa-sha1
+mxs.eb.sign.cert.path = D:/data/cert/torpedo/signCert.der
+mxs.eb.sign.key.path = D:/data/cert/torpedo/signPri.key
+mxs.eb.sign.key.pwd = kalamazoo1964
+
+################################################################################
+
+
+# Plugins ######################################################################
+mxs.ebmsg.preprocessor = kr.co.bizframe.mxs.plugins.EbMessagePreprocessor
+mxs.ebmsg.postprocessor = kr.co.bizframe.mxs.plugins.EbMessagePostprocessor
+################################################################################
+
+
+# System #######################################################################
+mxs.admin.password = 0DPiKuNIrrVmD8IUCuw1hQxNqZc=
+################################################################################
+
+################################################################################
+# set DB type
+# 1 : Oracle
+# 2 : DB2
+# 3 : Mssql
+# 4 : pgsql
+# 5 : altibase
+# 6 : informix
+# 7 : mysql
+mxs.db.type = 1
+################################################################################
+
+# DAO Factory ##################################################################
+mxs.dao.client.impl = ClientDAOFactory
+mxs.dao.oracle.impl = OracleDAOFactory
+mxs.dao.db2.impl = DB2DAOFactory
+mxs.dao.mssql.impl = MssqlDAOFactory
+mxs.dao.pgsql.impl = PgsqlDAOFactory
+mxs.dao.altibase.impl = AltibaseDAOFactory
+mxs.dao.ifx.impl = IfxDAOFactory
+mxs.dao.derby.impl = DerbyDAOFactory
+################################################################################
+
+mxs.override.endpoint = true
+mxs.override.endpoint.plugin =  kr.co.bizframe.mxs.plugins.DirectEndpointPlugin
+mxs.ebms.checkpartyid.ignore = true
+mxs.ebms.syncreply.ignore = true
+
+
+mxs.https.easy = true
+mxs.https.override.class = kr.co.bizframe.ecf.ssl.EcfSSLProtocolSocketFactory
+mxs.https.cert.verifier.cacert.path = D:/data/ssl-data/CACERT
+mxs.https.cert.verifier.crl.path = D:/data/ssl-data/CRL
+#mxs.https.cert.verifier.certpath.enable = true
+#mxs.https.cert.verifier.revocation.enable = true
+mxs.https.whilelist.file = C:/workspace/ecf_21_dev/ecf_ssl/conf/ssl-white-list.xml
+
+

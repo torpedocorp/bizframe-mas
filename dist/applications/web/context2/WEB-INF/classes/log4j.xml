@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration 
+    xmlns:log4j="http://jakarta.apache.org/log4j/" 
+    debug="false">
+	
+     <appender name="APP_FILE" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="C:/ecf/data/logs/imxs/mxs.log" />
+		<param name="Append" value="true" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p %c{1} [%t]: %m%n" />
+		</layout>
+	</appender>
+	
+    <appender name="SQL_FILE" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="File" value="C:/ecf/data/logs/imxs/sql.log" />
+		<param name="Append" value="true" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p %c{1} [%t]: %m%n" />
+		</layout>
+	</appender>
+	
+   <appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p %c [%t]: %m%n" />
+        </layout>   
+    </appender>
+	
+	<appender name="APP" class="org.apache.log4j.AsyncAppender">
+		<appender-ref ref="APP_FILE" />
+      <appender-ref ref="STDOUT" />
+	</appender>
+	
+	<appender name="SQL" class="org.apache.log4j.AsyncAppender">
+		<appender-ref ref="SQL_FILE" />
+    	<appender-ref ref="STDOUT" />	
+	</appender>
+	
+	<!-- APP -->
+	<logger name="kr.co.bizframe.mxs" additivity="false">
+		<level value="trace" />
+		<appender-ref ref="APP" />
+	</logger>
+	
+	
+	<logger name="kr.co.bizframe.ecf" additivity="false">
+		<level value="trace" />
+		<appender-ref ref="APP" />
+	</logger>
+	
+	<logger name="org.apache.commons" additivity="false">
+		<level value="error" />
+		<appender-ref ref="APP" />
+	</logger>
+	
+	<logger name="httpclient.wire.header" additivity="false">
+		<level value="error" />
+		<appender-ref ref="APP" />
+	</logger>
+	
+	
+	<root>
+		<level value="ERROR" />
+		<appender-ref ref="APP" />
+	</root>
+	                   
+</log4j:configuration>

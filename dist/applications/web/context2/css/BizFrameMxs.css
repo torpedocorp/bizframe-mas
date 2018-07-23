@@ -1,0 +1,338 @@
+/******************************************************************************
+* ÀÛ   ¼º  ÀÚ : À±Àç¿Á
+* ÀÛ   ¼º  ÀÏ : 2007-8-10
+ ============================================================================*/ 
+/*=============================================================================
+ - body 
+ ============================================================================*/ 
+body   {font-family:"µ¸¿ò";  font-size:12px;  color:#666666;  line-height:18px;   margin:20px 0 0 25px;}   
+
+td , tr  {color:#666666; font-size:12px;   font-family:"µ¸¿ò";  line-height:18px}    
+
+scrollbar {scrollbar-face-color:#E7E7E7;  scrollbar-shadow-color:#6C6C6C;  scrollbar-highlight-color:#FFFFFF;  scrollbar-3dlight-color:#C9C9C9; 
+               scrollbar-darkshadow-color:#FFFFFF;  scrollbar-track-color:#ECECE;  scrollbar-arrow-color: #4F8BAD}
+
+
+/*=============================================================================
+ - a  
+ ============================================================================*/
+a:link	        {color:#666666; font-weight:normal; text-decoration:none;}
+
+a:visited	    {color:#666666; font-weight:normal; text-decoration:none;}
+
+a:active	    {color:#035594; font-weight:normal; text-decoration:none;}
+
+a:hover	    {color:#035594; font-weight:normal; text-decoration:none;}	
+
+
+/*=============================================================================
+ -  form 
+ ============================================================================*/ 
+
+.FormText      { border: 1px  solid  #7F9DB9; background-color:#FFFFFF;  font-size:8pt;  font-family:"arial","µ¸¿ò";  color:#666666;  height:20;}
+
+.FormTextReadOnly  { border: 1px  solid  #7F9DB9;  background-color:#F5F5F5;  font-size:8pt;  font-family:"arial", "µ¸¿ò";  color:#666666;  height:20;}
+		
+.FormDate     { border:1px solid #7F9DB9;  background-color:#FFFFFF;  font-size:8pt;  font-family:"arial", "µ¸¿ò";  color:#666666; height:20; }
+	
+.FormNumber   {border:1px solid #7F9DB9; background-color:#F7FBFF;  font-size:8pt;  font-family:"arial", "µ¸¿ò";  color:#666666; height:20;  text-align:right;}
+		
+.FormRadio    {       }	
+		
+.FormCheckBox {       }		
+		
+.FormSelect   {color:#3D3D3D; height:20px; font-size:8pt;  font-family:"arial", "µ¸¿ò";}	
+		
+.FormTextArea {color:#3D3D3D; font-size:8pt;  font-family:"arial", "µ¸¿ò";}
+
+
+
+/*=============================================================================
+ - ÅØ½ºÆ® »ö»ó
+ ============================================================================*/	
+.GreyText   { font-family:"µ¸¿ò";   font-size: 12px;    font-weight: normal;    color:#9C9C9C; } 
+     
+.RedText    { font-family:"µ¸¿ò";   font-size: 12px;    font-weight: normal;    color:#C80D47; } 
+  
+.OrangeText { font-family: "µ¸¿ò";   font-size: 12px;    font-weight: normal;    color:#FF6606; } 
+     
+.GreenText  { font-family:"µ¸¿ò";   font-size: 12px;    font-weight: normal;    color:#12797A; }        
+         
+.BlueText   { font-family:"µ¸¿ò";   font-size: 12px;    font-weight: normal;    color:#3366CC; } 
+  
+.VioletText { font-family:"µ¸¿ò";   font-size: 12px;    font-weight: normal;    color:#A209DB; }        
+         	
+ 
+/*=============================================================================
+ - Å¸ÀÌÆ² , Å×ÀÌºí·¹ÀÌ¾Æ¿ô
+ ============================================================================*/
+.TableLayout    {width:760px;  border:0;   padding:0;   margin-left:0px;  border-collapse:collapse ; }
+	
+.Title          {font-family:"µ¸¿ò";  font-size:14px;  color:#333333;  font-weight:bold;  text-decoration:none;  line-height:19px;  padding-top:1px; }	
+
+.MessageDisplay {font-family:"µ¸¿ò";  font-size:12px;  color:#FF6606;;  font-weight:normal;  padding-top:2px; line-height:19px;}
+
+.SelectTable    {background-color:#E9F2FB;   width:760px;  border:0;   padding:0;   margin-left:0px;  border-collapse:collapse ;  }
+
+.SelectTableIn  {background-color:#E9F2FB;   font-family:"µ¸¿ò";  font-size:12px;  color:#527EAC;  font-weight:bold;   padding-left:15px;  height:34px;  }
+
+.PopupLayoutTable {width:560px; border:0;  padding:0;  border-collapse:collapse;   margin-left:0;   margin-top:0;  }
+
+.PopupTitle  {font-family:"µ¸¿ò";  font-size:14px;  font-weight:bold;  color:#ffffff;  padding-left:15px;  }
+
+.SubTitle    {font-family:"µ¸¿ò";  font-size:12px;  font-weight:bold;  color:#187CAA;   height:18px; }
+
+.ImageButton  {margin-left: 2px; vertical-align: absmiddle; }
+
+.TableListsearch   { background-color:#F7F7F7;  width:760px;  border:0;   padding:0;   margin-left:0px;  border-collapse:collapse ;  height:34px;}
+								 
+.TotalTable {width:760px;  border:0;   border-collapse:collapse ; margin: 20px 0  3px 0;    }
+
+
+
+/*=============================================================================
+ - location Link : 'ÇöÀçÀ§Ä¡'
+ ============================================================================*/
+.location	{color:#888888; font-size:11px; line-height:16px; font-family:"µ¸¿ò"; padding-top:2px; text-align:right;}
+
+.location a:link	{color:#888888; text-decoration:none;}
+
+.location a:visited	{color:#888888; text-decoration:none;}
+
+.location a:active	{color:#000000; text-decoration:none;}
+
+.location a:hover	{color:#000000; text-decoration:none;}
+ 
+	
+/*=============================================================================
+ - °Ë»öÁ¶°Ç 
+ ============================================================================*/
+.SearchTable { width:760px;  border:0;  padding:0;   margin-left:0px;   border-collapse:collapse;   background-color:#F8F8F8;   font-family:"µ¸¿ò";  font-size:12px;
+                 border-top-width:1px;     border-top-style:solid;      border-top-color:#E5E5E5;
+                 border-bottom-width:1px;  border-bottom-style:solid;   border-bottom-color:#E5E5E5;
+	             border-left-width:1px;    border-left-style:solid;     border-left-color:#E5E5E5;
+	             border-right-width:1px;   border-right-style:solid;    border-right-color:#E5E5E5;}
+				 
+.PopSearchTable { width:560px;  border:0;  padding:0;   margin-left:0px;   border-collapse:collapse;   background-color:#F8F8F8;   font-family:"µ¸¿ò";  font-size:12px;
+                 border-top-width:1px;     border-top-style:solid;      border-top-color:#E5E5E5;
+                 border-bottom-width:1px;  border-bottom-style:solid;   border-bottom-color:#E5E5E5;
+	             border-left-width:1px;    border-left-style:solid;     border-left-color:#E5E5E5;
+	             border-right-width:1px;   border-right-style:solid;    border-right-color:#E5E5E5;}
+
+.SearchLabel {width:740px;   border:0; padding:0;   margin-left:0px;  border-collapse:collapse ; }
+    
+
+/*=============================================================================
+ - °Ë»ö°á°ú List  
+ ============================================================================*/ 
+.Wordbreak {
+        white-space: pre-wrap; /* css-3 */
+        white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+        white-space: -pre-wrap; /* Opera 4-6 */
+        white-space: -o-pre-wrap; /* Opera 7 */
+        word-wrap: break-word; /* Internet Explorer 5.5+ */
+    }
+
+.ResultHeader                          
+    {
+	padding: 3px 3px 1px 3px; 
+	border-top-width:1px;
+	border-top-style:solid;
+	border-top-color:#C3D2E8;
+    border-bottom-width:1px;
+    border-bottom-style:solid;
+	border-bottom-color:#C3D2E8;
+	border-left-width:1px;
+	border-left-style:solid;
+	border-left-color:#C3D2E8;
+    background-color:#EDF3F9;
+	font-family:dotum;
+	font-size:12px;
+    color:#3C6DA9; 
+	font-family: "µ¸¿ò";
+	text-align: center;
+
+    }
+
+.ResultLastHeader                          
+    {	
+	padding: 3px 3px 1px 3px; 
+	border-top-width:1px;
+	border-top-style:solid;
+	border-top-color:#C3D2E8;
+	border-bottom-width:1px;
+    border-bottom-style:solid;
+	border-bottom-color:#C3D2E8;
+	border-left-width:1px;
+	border-left-style:solid;
+	border-left-color:#C3D2E8;
+	border-right-width:1px;
+	border-right-style:solid;
+	border-right-color:#C3D2E8;
+    background-color:#EDF3F9;
+	font-family:dotum;
+	font-size:12px;
+    color:#3C6DA9; 
+	font-family: "µ¸¿ò";
+	text-align: center;
+
+	}
+	
+.ResultData 
+    {
+	padding: 3px 3px 1px 3px; 
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color:#C3D2E8;
+	border-left-style: solid;
+	border-left-width: 1px;
+	border-left-color: #C3D2E8;
+	background-color: #FFFFFF;     
+    }
+
+.ResultLastData
+    {
+	padding: 3px 3px 1px 3px; 
+    border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #C3D2E8;
+	border-left-width: 1px;
+	border-left-style: solid;
+	border-left-color: #C3D2E8;
+	border-right-width: 1px;
+	border-right-style: solid;
+	border-right-color:#C3D2E8;
+    background-color: #FFFFFF;
+    }
+    
+.ResultData2ndRowColor 
+    {background-color: #F9F9F9;}
+    
+.ResultRowCntText
+	{
+	font-family: "µ¸¿ò";
+	font-weight: bold;
+	color: 4683B9;
+	font-size: 12px;
+	}
+
+/*=============================================================================
+ - µî·Ï List  
+ ============================================================================*/ 
+ .FieldTable { width:760px;  border:0;   padding:0;   margin-left:0px;  border-collapse:collapse ;    }
+  
+ .FieldTitle { padding: 3px 3px 2px 10px; 
+	
+    border-bottom-width:1px;   border-bottom-style:solid;   border-bottom-color:#C3D2E8;
+	font-family:dotum;   font-size:12px;   color:#3C6DA9;    font-family: "µ¸¿ò";   font-weight:bold;}
+
+ .FieldLabel { padding: 3px 3px 2px 10px; 
+	border-top-width:1px;        border-top-style:solid;        border-top-color:#C3D2E8;
+    border-bottom-width:1px;   border-bottom-style:solid;   border-bottom-color:#C3D2E8;
+	border-left-width:1px;        border-left-style:solid;        border-left-color:#C3D2E8;
+	background-color:#EDF3F9;
+	font-family:dotum;   font-size:12px;   color:#3C6DA9;    font-family: "µ¸¿ò";   }
+ 
+ .FieldData {  padding: 3px 3px 2px 10px; 
+    border-top-width:1px;        border-top-style:solid;        border-top-color:#C3D2E8;
+    border-bottom-width: 1px;   border-bottom-style: solid;    border-bottom-color: #C3D2E8;  
+	border-left-width: 1px;        border-left-style: solid;         border-left-color: #C3D2E8;   
+	border-right-width: 1px;      border-right-style: solid;       border-right-color:#C3D2E8;
+    background-color: #FFFFFF;  }
+
+ .FieldDataHelpTex  { font-family: "µ¸¿ò";   font-size: 11px;    font-weight: normal;    color:#6D66CE	}	
+	
+		
+/*=============================================================================
+ - Page Navigation 
+ ============================================================================*/				
+.PageNavigationTable       { width:760px;  border:0;   padding:0;   margin-left:0px;  border-collapse:collapse ;   height:34px; }		
+
+a.PageNavigation:link      {text-decoration:none; color:#898989;  }
+    
+a.PageNavigation:active    {text-decoration:none; color:#898989;  } 
+    
+a.PageNavigation:visited   {text-decoration:none; color:#898989;  }  
+    
+a.PageNavigationText:hover {text-decoration:none; color:#80ACDD; }
+	   
+.listAPaging {color:#CCCCCC; font-size:11px; line-height:17px; padding-top:2px; padding-right:7px; padding-left:7px; text-align:center; white-space:nowrap;}
+
+.btn_first {width:14px; height:14px; vertical-align:middle;}
+
+.btn_prev {width:19px; height:14px; vertical-align:middle;}
+
+.btn_next {width:19px; height:14px; vertical-align:middle;}
+
+.btn_last {width:14px; height:14px; vertical-align:middle;}
+
+
+/*=============================================================================
+ - ¹öÆ°   : °¢Á¾ ¹öÆ°¿¡ Àû¿ë
+ =============================================================================*/	
+.FormButton {color:#3D3D3D; height:20px;}
+
+ 
+/*=============================================================================
+ - ±âÅ¸ 
+ ============================================================================*/ 
+
+/*  space */
+.space_search {margin: 0px 0 10px 0;    width:760px;}
+
+
+/* copyright */
+.copyright { font-family: "µ¸¿ò";  font-size: 11px;	 font-weight: normal;	color:#666666;}
+
+
+
+/*=============================================================================
+ - LeftMenu
+ ============================================================================*/
+a.left:link, a.left:active, a.left:visited {text-decoration:none; color:#666666; font-weight:normal;  font-weight:bold;}
+a.left:hover {text-decoration:none; color:#035594; font-weight:normal; font-weight:bold; }
+ 
+.Left_Menu {font-family: "µ¸¿ò"; font-size: 12px; font-weight: normal; color: #000000; height: 18px;}
+
+h1 {
+    background-image: url(../images/left_arrow.gif);
+    background-position:0 0px;
+    background-repeat:no-repeat;
+	margin:0px 0 0 0;
+	padding:6px 0 0 27;
+    font-family:dotum;
+	font-size:12px;
+	font-weight:bold;
+	color:#666666;
+}	
+
+h2 {
+    background-image:url(../images/left_arrow2.gif);
+    background-position:0 0px;
+    background-repeat:no-repeat;
+	margin:0px 0 0 0;
+	padding:0px 0 0 35;
+    font-family:dotum;
+	font-size:12px;
+	font-weight:normal;
+	color:#666666;
+}
+
+h3 {
+    background-image: url(../images/left_arrow.gif);
+    background-position:0 0px;
+    background-repeat:no-repeat;
+	margin:0px 0 0 0;
+	padding:6px 0 0 27;
+    font-family:dotum;
+	font-size:12px;
+	font-weight:bold;
+	color:#567CAA;
+}
+
+
+/*=============================================================================
+ - loginbox 
+ ============================================================================*/
+.login_text {padding:15px 0 10 10; font-family:dotum; font-size:11px; color:#333333; vertical-align:top;}
+.login_btn  {padding:0px 0 0 10; vertical-align:top;}

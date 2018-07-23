@@ -3,8 +3,6 @@ package kr.co.bizframe.mas.boot;
 import kr.co.bizframe.mas.command.Command;
 import kr.co.bizframe.mas.command.CommandInvoker;
 import kr.co.bizframe.mas.conf.MasConfig;
-import kr.co.bizframe.mas.conf.bind.ServerDef;
-import kr.co.bizframe.mas.core.MasProcess;
 import kr.co.bizframe.mas.core.MasServer;
 
 public class Bootstrap {
@@ -24,21 +22,12 @@ public class Bootstrap {
 		MasServer server = new MasServer(homeDir);
 		server.startup();
 	}
-	
-	
-	private CommandInvoker getCommandInovker(){
-		ServerDef sd = MasConfig.getServer();
-		CommandInvoker ac = new CommandInvoker(sd.getIp(), sd.getPort(),
-				sd.getTimeout());
-		return ac;
-	}
-	
-	
+
 	public void shutdown() {
 		try{
-			CommandInvoker ci = getCommandInovker();
+			CommandInvoker ac = new CommandInvoker();
 			Command.SHUTDOWN cmd = new Command.SHUTDOWN();
-			ci.invoke(cmd);
+			ac.invoke(cmd);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -46,9 +35,9 @@ public class Bootstrap {
 
 	public void version() {
 		try{
-			CommandInvoker ci = getCommandInovker();
+			CommandInvoker ac = new CommandInvoker();
 			Command.VERSION cmd = new Command.VERSION();
-			ci.invoke(cmd);
+			ac.invoke(cmd);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -56,17 +45,12 @@ public class Bootstrap {
 
 	public void status() {
 		try{
-			CommandInvoker ci = getCommandInovker();
+			CommandInvoker ac = new CommandInvoker();
 			Command.STATUS cmd = new Command.STATUS();
-			ci.invoke(cmd);
+			ac.invoke(cmd);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 	}
-	
-	
-	public void shutdownForcelly(){
-		MasProcess process = new MasProcess(homeDir);
-		process.destroy();
-	}
+
 }

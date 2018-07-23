@@ -1,7 +1,5 @@
 package kr.co.bizframe.mas.application;
 
-import java.net.URL;
-
 import kr.co.bizframe.mas.routing.RoutingContext;
 import kr.co.bizframe.mas.routing.RoutingManager;
 import kr.co.bizframe.mas.routing.impl.DefaultRoutingContext;
@@ -14,9 +12,7 @@ public class ApplicationContext extends PropertyHolder {
 	private String name;
 
 	private String contextDir;
-	
-	private String homeDir;
-	
+
 	private boolean disableCreateClassLoader;
 
 	private ClassLoader classLoader;
@@ -56,14 +52,6 @@ public class ApplicationContext extends PropertyHolder {
 
 	public void setContextDir(String contextDir) {
 		this.contextDir = contextDir;
-	}
-	
-	public String getHomeDir() {
-		return homeDir;
-	}
-
-	public void setHomeDir(String homeDir) {
-		this.homeDir = homeDir;
 	}
 
 	public ClassLoader getClassLoader() {
@@ -109,16 +97,5 @@ public class ApplicationContext extends PropertyHolder {
 
 	public ApplicationManager getApplicationManager() {
 		return applicationManager;
-	}
-	
-	public URL getResource(String name){
-		
-		URL url = null;
-		try{
-			url = new URL("file://"+contextDir + "/" + name);
-		}catch(Exception e){
-			throw new RuntimeException(e.getMessage(), e);
-		}
-		return url;
 	}
 }

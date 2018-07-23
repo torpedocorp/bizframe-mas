@@ -1,7 +1,6 @@
 package kr.co.bizframe.mas.util;
 
 import java.io.File;
-import java.io.InputStream;
 
 import org.jdom.Document;
 import org.jdom.Element;
@@ -40,20 +39,6 @@ public class XMLUtil {
 
 	}
 
-	public static Element getRootElement(InputStream is) throws Exception {
-
-		try {
-			SAXBuilder builder = new SAXBuilder(false);
-			Document confRoot = builder.build(is);
-			Element rootConfEle = confRoot.getRootElement();
-
-			return rootConfEle;
-		} catch (Exception e) {
-			throw e;
-		}
-	}
-
-	
 	public static Element getRootElement(File confFile) throws Exception {
 
 		try {

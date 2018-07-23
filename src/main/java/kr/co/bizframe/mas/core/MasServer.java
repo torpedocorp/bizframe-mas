@@ -1,6 +1,5 @@
 package kr.co.bizframe.mas.core;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -16,8 +15,6 @@ import kr.co.bizframe.mas.command.model.ApplicationDefInfo;
 import kr.co.bizframe.mas.command.model.ApplicationInfo;
 import kr.co.bizframe.mas.command.model.RouteInfo;
 import kr.co.bizframe.mas.conf.MasConfig;
-import kr.co.bizframe.mas.management.JMXManager;
-import kr.co.bizframe.mas.management.mbean.ManagedMasServer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,15 +29,15 @@ public class MasServer implements Lifecycle {
 	private ServerSocket serverSocket;
 
 	private MasEngine engine;
-	
-	private MasProcess process;
-	
+
 	private String homeDir;
 
 	// private List<String> filterRemoteAddress = new ArrayList<String>();
 
 	public enum Status {
+
 		SHUTDOWNED, SHUTDOWNING, STARTED, STARTING, FAILED
+
 	}
 
 	private static String RESP_MSG_OK = "OK";
@@ -48,10 +45,8 @@ public class MasServer implements Lifecycle {
 	private static String RESP_MSG_FAIL = "FAIL";
 	
 	public MasServer(String homeDir) {
-		
-		File f = new File(homeDir);
-		this.homeDir = f.getAbsolutePath();;
-		JMXManager.registerServerMgmt(this);
+		this.homeDir = homeDir;
+
 	}
 
 	public void startup() {
@@ -76,37 +71,23 @@ public class MasServer implements Lifecycle {
 		}
 		logger.info("mas server listen on port=[" + port + "]");
 
-		process = new MasProcess(homeDir);
-		process.create();
-		
 		// 엔진 시작 작업
 		engine = new MasEngine(homeDir);
 		engine.startup();
-		//this.status = Status.STARTED;
-		changeStatus(status, Status.STARTED);
-		
+		this.status = Status.STARTED;
 		await();
 	}
 
-	
 	public void shutdown() throws Exception {
 
 		if (engine == null)
 			return;
 		engine.shutdown();
 
-		//this.status = Status.SHUTDOWNED;
-		changeStatus(status, Status.SHUTDOWNED);
+		this.status = Status.SHUTDOWNED;
 		unlockAccept();
 	}
 
-	
-	
-	public String getHomeDir() {
-		return homeDir;
-	}
-
-	
 	private void await() {
 
 		while (status == Status.STARTED) {
@@ -132,13 +113,7 @@ public class MasServer implements Lifecycle {
 	public Status getStatus() {
 		return status;
 	}
-	
-	
-	private void changeStatus(Status preStatus, Status status){
-		ManagedMasServer mgmt = JMXManager.getServerMgmt();
-		mgmt.changeStatusNotification(preStatus, status);
-		this.status = status;
-	}
+
 	
 	private void command(Socket socket) {
 
@@ -328,6 +303,7 @@ public class MasServer implements Lifecycle {
 					if(list.size() == 0) {
 						cr.setException("appId parameter is missing.");
 					}
+
 				
 					String appId = (String)list.get(0);
 					logger.debug("try to start app Id = ["+appId+"]");

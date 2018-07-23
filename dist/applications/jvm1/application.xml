@@ -1,0 +1,11 @@
+<application>
+	<id>proc2</id>
+	<name>proc2</name>
+	<load-class>kr.co.bizframe.mas.process.JVMApplication</load-class>
+	<params>
+		<param key="java_home" value="" />
+		<param key="main_class" value="SocketServer" />
+		<param key="options" value="-cp ." />
+		<param key="work_dir" value="/home/yjbae/app/socket" />
+ 	</params>
+</application>

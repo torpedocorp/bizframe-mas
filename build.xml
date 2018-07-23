@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
 <!-- ======================================================================= -->
-<!-- BizFrame micro application server - Ant Builder                                               -->
+<!-- BizFrame bean application server - Ant Builder                                               -->
 <!-- author Bae young jun														 -->
 <!-- ======================================================================= -->
 
@@ -17,8 +17,8 @@
 
 	<property file="./build.properties"/>
 	<property name="product.name" value="bizframe-mas"/>
-	<property name="product.version" value="2.0.0"/>
-	<property name="year" value="2018"/>
+	<property name="product.version" value="1.0.0"/>
+	<property name="year" value="2014"/>
 
 	<property name="jar.name" value="${product.name}-${product.version}.jar"/>
 	<property name="jar.command.name" value="${product.name}-command-${product.version}.jar"/>
@@ -28,6 +28,9 @@
 	<!-- Build classpath 													 -->
 	<!-- =================================================================== -->
 	<path id="classpath">
+		<fileset dir="${basedir}/lib">
+			<include name="**/*.jar"/>
+		</fileset>
 		<fileset dir="${basedir}/dist/lib/system">
 				<include name="**/*.jar"/>
 		</fileset>
@@ -71,6 +74,8 @@
 				deprecation="on"
 				encoding="UTF-8"
 				optimize="on"
+				source="1.5"
+				target="1.5"
 				classpath="${build.classpath}">
 			</javac>
 

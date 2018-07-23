@@ -1,7 +1,6 @@
 package kr.co.bizframe.mas.conf;
 
 import java.io.File;
-import java.io.InputStream;
 import java.util.List;
 
 import kr.co.bizframe.mas.application.ApplicationDef;
@@ -17,19 +16,9 @@ public class ApplicationConfig {
 
 	private static Logger log = LoggerFactory.getLogger(ApplicationConfig.class);
 
-	public static ApplicationDef parse(InputStream is) throws Exception {
-		Element ele = XMLUtil.getRootElement(is);
-		return parse(ele);
-	}
-
 	public static ApplicationDef parse(File confFile) throws Exception {
 		Element ele = XMLUtil.getRootElement(confFile);
-		return parse(ele);
-	}
-	
-	
-	public static ApplicationDef parse(Element ele) throws Exception {
-	
+
 		ApplicationDef def = new ApplicationDef();
 
 		String id = XMLUtil.getText("id", ele);
@@ -40,7 +29,7 @@ public class ApplicationConfig {
 		def.setLoadClass(loadClass);
 		def.setParentFirstClassLoader(false);
 		def.setParentOnlyClassLoader(false);
-		
+
 		// optional
 		// 상위 클래스 로더를 그대로 사용할지 여부
 		// default : 새로 생성
@@ -60,23 +49,15 @@ public class ApplicationConfig {
 		// optional
 		// 어플리케이션 로딩 순번 - integer 낮은 수일수록 먼저 로딩
 		// default : 0 (가장 먼저 로딩)
-		String sseqeunce = XMLUtil.getText("load-sequence", ele, true);
-		if (sseqeunce != null) {
-			int seqeunce = 0;
+		String spriority = XMLUtil.getText("priority", ele, true);
+		if (spriority != null) {
+			int priority = 0;
 			try {
-				seqeunce = Integer.parseInt(sseqeunce);
+				priority = Integer.parseInt(spriority);
 			} catch (Exception e) {
-				throw new Exception("load-sequence is not integer.");
+				throw new Exception("priority is not integer.");
 			}
-			def.setLoadSequence(seqeunce);
-		}
-
-		// optional
-		// application 이 sesrvice일 경우 엔진 로딩시 자동 deploy 여부
-		// default : true
-		String autodeploy = XMLUtil.getText("auto-deploy", ele, true);
-		if ("false".equalsIgnoreCase(autodeploy)) {
-			def.setAutoDeploy(false);
+			def.setPriority(priority);
 		}
 
 		// optional
@@ -87,16 +68,6 @@ public class ApplicationConfig {
 			def.setAutoStart(false);
 		}
 
-		
-		// optional
-		// application이  mar 상태일 경우 unpack을 수행할지 여부
-		// default : false
-		String unpackMar = XMLUtil.getText("unpack-mar", ele, true);
-		if ("true".equalsIgnoreCase(unpackMar)) {
-			def.setUnpackMar(true);
-		}
-
-		
 		Element ele_params = ele.getChild("params");
 		if (ele_params != null) {
 			List<Element> ele_param_list = ele_params.getChildren("param");

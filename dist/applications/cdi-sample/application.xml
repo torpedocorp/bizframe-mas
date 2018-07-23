@@ -1,0 +1,9 @@
+<application>
+	<id>cdi</id>
+	<name>cdi</name>
+	<load-class>kr.co.bizframe.mas.cdi.CdiApplication</load-class>
+	<params>
+		<param key="basePackage" value="kr.co.bizframe.cdi" ></param>
+		<param key="test2" value="test2"></param>
+ 	</params>
+</application>

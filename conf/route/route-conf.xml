@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ===================================================================== -->
+<!--  Torpedo BizFrame MAS Routing Configuration              					         -->
+<!-- ===================================================================== -->
+
+<route-conf>
+	<!--route id="1">
+		<application id="agent-server-http"/>
+		<application id="debugging"/>		
+	</route-->	
+	
+	<route id="2">
+		<application id="agent-server-http"/>
+		<content-based-route>
+			<path>
+				<condition>
+					<header key="aaa" value="111"/>
+				</condition>
+				<application id="debugging">
+					<property key="endpoint" value="192.168.10.1"/>
+				</application>	
+			</path>
+			<path>
+				<condition>
+					<and>
+						<or>
+							<header key="aaa" value="3"/>
+							<header key="aaa" value="3"/>
+						</or>
+						<header key="aaa" value="3"/>
+					</and>
+				</condition>
+				<application id="ftp1">	
+					<property key="host" value="112.216.89.221" />		
+				</application>		
+			</path>		
+			<path>
+				<condition>
+					<default/>
+				</condition>
+				<application id="ftp1">	
+					<property key="host" value="112.216.89.221" />		
+				</application>		
+			</path>
+		</content-based-route>
+	</route>
+	
+	<!--route id="3">
+		<application id="agent1"/>
+		<application id="socket2"/>	
+	</route-->	
+	
+	<route id="4">
+		<application id="scheduler1"/>			
+		<application id="ftp1">	
+				<property key="host" value="112.216.89.221" />		
+		</application>		
+		<application id="debugging"/>				
+	</route>	
+	
+</route-conf>		

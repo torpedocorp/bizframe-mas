@@ -4,22 +4,11 @@ public class ServerDef {
 
 	private String id;
 
-	private String ip;
-	
 	private int port;
 
 	private int timeout;
 
 	private EngineDef engine;
-	
-	
-	public String getIp() {
-		return ip;
-	}
-
-	public void setIp(String ip) {
-		this.ip = ip;
-	}
 
 	public int getTimeout() {
 		return timeout;
@@ -55,10 +44,7 @@ public class ServerDef {
 
 	@Override
 	public String toString() {
-		return "ServerDef [id=" + id + ", ip=" + ip + ", port=" + port + ", timeout=" + timeout + "]";
+		return "ServerDef [engine=" + engine + ", id=" + id + ", port=" + port + "]";
 	}
 
-	
-	
-	
 }

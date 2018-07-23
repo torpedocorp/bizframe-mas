@@ -12,7 +12,7 @@ import kr.co.bizframe.mas.Version;
 import kr.co.bizframe.mas.application.ApplicationContext;
 import kr.co.bizframe.mas.application.ApplicationDef;
 import kr.co.bizframe.mas.application.ApplicationManager;
-import kr.co.bizframe.mas.application.MasApplication;
+import kr.co.bizframe.mas.application.ManagedApplication;
 import kr.co.bizframe.mas.command.model.ApplicationDefInfo;
 import kr.co.bizframe.mas.command.model.ApplicationInfo;
 import kr.co.bizframe.mas.command.model.RouteInfo;
@@ -31,7 +31,7 @@ import org.slf4j.LoggerFactory;
 public class MasEngine implements Lifecycle {
 
 	private static Logger log = LoggerFactory.getLogger(MasEngine.class);
-	
+
 	private String engineId;
 
 	private Status status = Status.SHUTDOWNED;
@@ -41,9 +41,11 @@ public class MasEngine implements Lifecycle {
 	private boolean enableRouting = false;
 
 	private AbstractRoutingManager routingManager;
-	
+
 	private enum Status {
+
 		SHUTDOWNED, SHUTDOWNING, STARTED, STARTING, FAILED
+
 	}
 
 	public MasEngine() {
@@ -58,8 +60,8 @@ public class MasEngine implements Lifecycle {
 
 		this.engineId = engineDef.getId();
 		ApplicationsDef appsDef = engineDef.getApplications();
-		boolean hotDeploy = engineDef.isHotDeploy();
-		this.applicationManager = new ApplicationManager(homeDir, appsDef, hotDeploy, this);
+
+		this.applicationManager = new ApplicationManager(homeDir, appsDef, this);
 
 		RoutingDef routingDef = engineDef.getRouting();
 		loadRoutingManager(routingDef);
@@ -189,8 +191,8 @@ public class MasEngine implements Lifecycle {
 
 		sb.append("engine status=["+status+"] \n");
 		sb.append("applicationManager status=["	+applicationManager.getStatus()+"] \n");
-		List<MasApplication> apps = applicationManager.getManagedApplications();
-		for (MasApplication app : apps) {
+		List<ManagedApplication> apps = applicationManager.getManagedApplications();
+		for (ManagedApplication app : apps) {
 			String id = app.getContext().getId();
 			String name = app.getContext().getName();
 			sb.append("application id=[" + id + "], name=[" + name
@@ -252,7 +254,7 @@ public class MasEngine implements Lifecycle {
 		ApplicationDefInfo appDefInfo = new ApplicationDefInfo();
 		appDefInfo.setId(appDef.getId());
 		appDefInfo.setName(appDef.getName());
-		appDefInfo.setLoadSequencey(appDef.getLoadSequence());
+		appDefInfo.setPriority(appDef.getPriority());
 		appDefInfo.setContextDir(appDef.getContextDir());
 		appDefInfo.setLoadClass(appDef.getLoadClass());
 		appDefInfo.setParentOnlyClassLoader(appDef.isParentOnlyClassLoader());
@@ -280,9 +282,9 @@ public class MasEngine implements Lifecycle {
 		log.debug("MasEngine getApplicationList");
 		
 		List<ApplicationInfo> appInfoList = new ArrayList<ApplicationInfo>();
-		List<MasApplication> maps = applicationManager.getManagedApplications();
+		List<ManagedApplication> maps = applicationManager.getManagedApplications();
 		
-		for(MasApplication mapp : maps){
+		for(ManagedApplication mapp : maps){
 			ApplicationInfo appInfo = populateApplicationInfo(mapp);
 			appInfoList.add(appInfo);
 	
@@ -304,9 +306,9 @@ public class MasEngine implements Lifecycle {
 		log.debug("MasEngine getApplicationInfo appId["+appId+"]");
 		
 		if(appId == null) return null;
-		List<MasApplication> maps = applicationManager.getManagedApplications();
+		List<ManagedApplication> maps = applicationManager.getManagedApplications();
 
-		for(MasApplication mapp : maps){
+		for(ManagedApplication mapp : maps){
 			//ApplicationInfo appInfo = populateApplicationInfo(mapp);
 			if(appId.equals(mapp.getContext().getId())){
 				return populateApplicationInfo(mapp);
@@ -316,7 +318,7 @@ public class MasEngine implements Lifecycle {
 	}
 	
 	
-	private ApplicationInfo populateApplicationInfo(MasApplication mapp){
+	private ApplicationInfo populateApplicationInfo(ManagedApplication mapp){
 		
 		ApplicationContext context = mapp.getContext();
 		ApplicationInfo appInfo = new ApplicationInfo();
@@ -410,9 +412,9 @@ public class MasEngine implements Lifecycle {
 			}
 		}
 
-		List<MasApplication> maps = applicationManager.getManagedApplications();
+		List<ManagedApplication> maps = applicationManager.getManagedApplications();
 
-		for(MasApplication mapp : maps){
+		for(ManagedApplication mapp : maps){
 			ApplicationContext context = mapp.getContext();
 			ApplicationInfo appInfo = new ApplicationInfo();
 			if(appIds.contains(context.getId())) {

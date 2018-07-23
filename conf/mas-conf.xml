@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ===================================================================== -->
+<!--  Torpedo BizFrame MAS Configuration              					         -->
+<!-- ===================================================================== -->
+
+<mas-conf>
+	<server id="1" port="9004">
+		<engine id="1">
+			<routing enable="false" 
+				class-name="kr.co.bizframe.mas.routing.impl.DefaultRoutingManager"/>
+			<applications base-dir="applications">
+				<application context-path="" />
+				<application context-path="" />
+			</applications>
+		</engine>
+	</server>
+</mas-conf>	

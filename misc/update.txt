@@ -1,0 +1,23 @@
+
+conf
+
+log4j.xml 삭제
+logback.xml 추가
+
+
+lib/system
+
+log4j-1.2.16.jar 삭제
+
+추가
+logback-access-1.1.8.jar
+logback-classic-1.1.8.jar
+logback-core-1.1.8.jar
+slf4j-api-1.7.22.jar 
+
+lib/extend
+
+삭제
+
+slf4j-api-1.6.1.jar
+slf4j-simple-1.6.1.jar

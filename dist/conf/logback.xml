@@ -2,30 +2,26 @@
 <configuration scan="true" scanPeriod="30 seconds">
  
     <!--property resource="resource.properties"/-->
-	<property name="LOG_DIR" value="../logs" />
-	
-	
+
+
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern> %d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
     </appender>
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_DIR}/mas.log</file>
+        <file>../logs/mas.log</file>
  	     <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_DIR}/mas.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>mas.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
  
         <encoder>
-            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{35} - %msg%n</pattern>
+            <pattern>%d{HH:mm:ss.SSS} %-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
         </encoder>
     </appender>
  
-    <logger name="kr.co.bizfrfame" level="DEBUG"/>
-    <logger name="org.apache.camel" level="ERROR"/>
-    <logger name="org.apache.catalina" level="DEBUG"/>
-    <!--logger name="org.eclipse.jetty" level="TRACE"/-->
+    <logger name="kr.co.bizfrfame" level="debug"/>
     <root level="info">
          <appender-ref ref="CONSOLE"/>
          <appender-ref ref="FILE"/>

@@ -1,0 +1,12 @@
+<application >
+	<id>app1</id>
+	<name>app1</name>
+	<load-class>kr.co.test.TestApp</load-class>
+	<parent-only-classloader></parent-only-classloader>
+	<parent-first-classloader>true</parent-first-classloader>
+	<priority></priority>
+	<auto-start></auto-start>
+	<params>
+		<param key="test1" value="test1" />
+ 	</params>
+</application>
