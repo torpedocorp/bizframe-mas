@@ -1,9 +1,0 @@
-<application>
-	<id>simple</id>
-	<name>simple</name>
-	<load-class>kr.co.bizframe.mas.example.simple.SimpleApp</load-class>
-	<params>
-		<param key="test" value="test" ></param>
-		<param key="test2" value="test2"></param>
- 	</params>
-</application>
