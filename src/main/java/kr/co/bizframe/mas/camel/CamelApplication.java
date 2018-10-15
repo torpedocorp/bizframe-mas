@@ -1,8 +1,10 @@
 package kr.co.bizframe.mas.camel;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.spi.ShutdownStrategy;
 import org.apache.camel.spring.Main;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,11 +18,14 @@ import kr.co.bizframe.mas.application.ApplicationException;
 public class CamelApplication implements Application, Serviceable {
 	
 	private static Logger log = LoggerFactory.getLogger(CamelApplication.class);
+
+	private ApplicationContext appContext;
 	
 	private Main main;
 
 	public void init(ApplicationContext context) throws ApplicationException{
 		
+		this.appContext  = context;
 		log.info("init camel servcie app");
 		log.info("props = " + context.getProperties());
 		try{
@@ -41,6 +46,9 @@ public class CamelApplication implements Application, Serviceable {
 	public void destroy(ApplicationContext context)  throws ApplicationException{
 		log.info("destory camel service app");
 		try{
+			if(!main.isStopped()){
+				main.stop();
+			}
 			main.shutdown();
 		}catch(Throwable t){
 			throw new ApplicationException(t.getMessage(), t);
@@ -61,13 +69,28 @@ public class CamelApplication implements Application, Serviceable {
 			if(contexts != null) contexts.clear();
 			
 			main.start();
+			
+			setupCamelContext();
+			
 		}catch(Throwable t){
 			throw new Exception(t.getMessage(), t);
 		}
-		getCamelContexts();
-		
+		//getCamelContexts();
 	}
-
+	
+	
+	
+	private void setupCamelContext(){
+		//camel context inflight exchange shutdown timeout -> default 5 second 
+		for(CamelContext camelContext : getCamelContexts()){
+			
+			int shutdownTimeout = appContext.getIntProperty("shutdown_timeout", 5);
+			ShutdownStrategy shutdownStrategy = camelContext.getShutdownStrategy();
+			shutdownStrategy.setTimeUnit(TimeUnit.SECONDS);
+			shutdownStrategy.setTimeout(shutdownTimeout);
+		}
+	}
+	
 	
 	public void stop() throws Exception{
 		log.info("stop camel service app");		
