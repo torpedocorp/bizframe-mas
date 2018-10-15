@@ -57,5 +57,10 @@ public class ManagedMasServer extends NotificationBroadcasterSupport implements 
 		MBeanNotificationInfo info = new MBeanNotificationInfo(types, name, description);
 		return new MBeanNotificationInfo[] { info };
 	}
+
+	@Override
+	public String getId() {
+		return MasConfig.getServer().getId();
+	}
 	
 }	

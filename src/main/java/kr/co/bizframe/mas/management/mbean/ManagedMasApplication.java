@@ -1,22 +1,18 @@
 package kr.co.bizframe.mas.management.mbean;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.management.AttributeChangeNotification;
 import javax.management.MBeanNotificationInfo;
 import javax.management.Notification;
 import javax.management.NotificationBroadcasterSupport;
-import javax.management.ObjectInstance;
-import javax.management.ObjectName;
 
 import org.apache.camel.CamelContext;
+import org.apache.camel.Route;
 import org.apache.camel.api.management.mbean.ManagedCamelContextMBean;
-import org.apache.camel.management.mbean.ManagedCamelContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,9 +20,6 @@ import kr.co.bizframe.mas.Application;
 import kr.co.bizframe.mas.Serviceable;
 import kr.co.bizframe.mas.application.MasApplication;
 import kr.co.bizframe.mas.camel.CamelApplication;
-import kr.co.bizframe.mas.core.MasServer;
-import kr.co.bizframe.mas.management.JMXManager;
-import kr.co.bizframe.mas.process.JVMApplication;
 
 public class ManagedMasApplication extends NotificationBroadcasterSupport implements  ManagedMasApplicationMBean {
 	
@@ -81,11 +74,11 @@ public class ManagedMasApplication extends NotificationBroadcasterSupport implem
 	}
 	
 	@Override
-	public List<String> getSubManagementNames(){
+	public String getSubManagementInfos(){
 		try{
 			Application app = mapplication.getApplication();
 			if(app instanceof CamelApplication){
-				return getCamelSubManagementNames(app);
+				return getCamelSubManagementInfos(app);
 			}
 		}catch(Throwable t){
 			log.error(t.getMessage());
@@ -164,18 +157,45 @@ public class ManagedMasApplication extends NotificationBroadcasterSupport implem
 	}
 	
 	
-	private List<String> getCamelSubManagementNames(Application app){
-		List<String> result = new ArrayList<String>();
+	private String getCamelSubManagementInfos(Application app){		
 		CamelApplication ca = (CamelApplication)app;
 		List<CamelContext> ccs = ca.getCamelContexts();
-		for(CamelContext context : ccs){
+		StringBuilder sb = new StringBuilder();
+		// {"came-http-server":{"http-server":"Started","sendTrace":"Started"}}
+		sb.append("{");
+		boolean append = false;
+		for(CamelContext context : ccs){			
 			ManagedCamelContextMBean mcc = context.getManagedCamelContext();
 			if(mcc != null){
-				String id = mcc.getManagementName();
-				result.add(id);
+				String id = mcc.getManagementName();				
+				if (append) {
+					sb.append(",");
+				}
+				sb.append("\"");
+				sb.append(id);
+				sb.append("\"");
+				sb.append(":");
+				sb.append("{");
+				boolean subAppend = false;
+				for (Route route : context.getRoutes()) {
+					if (subAppend) {
+						sb.append(",");
+					}
+					sb.append("\"");
+					sb.append(route.getId());
+					sb.append("\"");
+					sb.append(":");
+					sb.append("\"");
+					sb.append(context.getRouteStatus(route.getId()));
+					sb.append("\"");
+					subAppend = true;
+				}
+				sb.append("}");
+				append = true; 
 			}
 		}
-		return result;
+		sb.append("}");
+		return sb.toString();
 	}
 	
 	

@@ -45,8 +45,9 @@ public class EngineDef {
 
 	@Override
 	public String toString() {
-		return "EngineDef [applications=" + applications + ", id=" + id
-				+ ", routing=" + routing + "]";
+		return "EngineDef [id=" + id + ", hotDeploy=" + hotDeploy + ", routing=" + routing + ", applications="
+				+ applications + "]";
 	}
 
+	
 }

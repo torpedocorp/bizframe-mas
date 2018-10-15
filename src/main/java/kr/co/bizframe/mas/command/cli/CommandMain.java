@@ -1,7 +1,6 @@
 package kr.co.bizframe.mas.command.cli;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.StringTokenizer;
@@ -14,14 +13,23 @@ public class CommandMain {
 	
 	private CommandInvoker invoker;
 	
+	public static String DEFAULT_HOST = "127.0.0.1";
+	
+	public static int DEFAULT_PORT = 9004;
+	
+	public static int DEFAULT_TIMEOUT = 100000;
+	
+	
 	public CommandMain(){
-		this.invoker = new CommandInvoker();
+		this.invoker = new CommandInvoker(DEFAULT_HOST, DEFAULT_PORT, DEFAULT_TIMEOUT);
 	}
 
+	
 	public CommandMain(String ip, int port, int timeout){
 		this.invoker = new CommandInvoker(ip, port, timeout);
 	}
 
+	
 	public void process(){
 		
 		showLogo();
@@ -32,7 +40,7 @@ public class CommandMain {
 		   
 		    String[] cmds = parse(cmdline);
 		    
-		    if(cmds == null || cmds.length == 0){
+		    if(cmds == null || cmds.length < 1){
 		    	continue;
 		    }
 		   
@@ -44,7 +52,10 @@ public class CommandMain {
 
 		    }else if("".equals(cmd)){
 		    	continue;
-		    	
+		    
+		    }else if("connect".equals(cmd)){
+		    	connect(cmds);
+		    
 		    }else if("status".equals(cmd)){
 				status();
 		    
@@ -66,6 +77,9 @@ public class CommandMain {
 		    }else if("undeployapp".equals(cmd)){
 		    	undeployApp(cmds);		    			    	
 
+		    }else if("removeapp".equals(cmd)){
+		    	removeApp(cmds);		    		
+		    	
 		    }else if("appinfo".equals(cmd)){
 		    	appInfo(cmds);		    	
 		    	
@@ -104,6 +118,7 @@ public class CommandMain {
 	private void showHelp(){
 		System.out.println(" quit - quit command line tool");
 		System.out.println(" help - help command line tool");
+		System.out.println(" connect [host port [timeout]] - connect server");
 		System.out.println(" status - status MAS server");
 		System.out.println(" shutdown - shutdown MAS server");	
 		System.out.println(" version - version of MAS server");	
@@ -111,6 +126,7 @@ public class CommandMain {
 		System.out.println(" stopapp [app_id] - stop application with app_id");
 		System.out.println(" deployapp [app_id] - deploy application with app_id");
 		System.out.println(" undeployapp [app_id] - undeploy application with app_id");
+		System.out.println(" removeapp [app_id] - remove application with app_id");
 		System.out.println(" appinfo [app_id] - application info with app_id");
 		System.out.println(" applist  -  application info list");
 		System.out.println(" appdef [app_id]- application def info");
@@ -119,9 +135,38 @@ public class CommandMain {
 	}
 	
 	 
+	private void connect(String[] cmds){
+		
+		String host = DEFAULT_HOST;
+		int port = DEFAULT_PORT;
+		int timeout = DEFAULT_TIMEOUT;
+	
+		if(cmds.length > 2){
+			host = cmds[1];
+			port = Integer.parseInt(cmds[2]);
+			invoker = new CommandInvoker(host, port);
+		}else if(cmds.length > 3){
+			host = cmds[1];
+			port = Integer.parseInt(cmds[2]);
+			timeout = Integer.parseInt(cmds[3]);
+			invoker = new CommandInvoker(host, port, timeout);
+		}
+		
+		try{
+			invoker.invoke(new Command.PING());
+			System.out.println("connected");
+			printConnectStatus();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
 	private void status(){
 		try{
 			CommandResponse response = invoker.invoke(new Command.STATUS());
+			printConnectStatus();
 			printResponse(response);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -152,9 +197,8 @@ public class CommandMain {
 	private void startApp(String[] cmds){
 		
 		try{
-			
-			if(cmds[1] == null){
-				throw new Exception("app is null.");
+			if(cmds.length < 2){
+				throw new Exception("app id is null.");
 			}
 		
 			Command cmd = new Command.START_APP();
@@ -169,8 +213,7 @@ public class CommandMain {
 	private void stopApp(String[] cmds){
 		
 		try{
-			
-			if(cmds.length == 1){
+			if(cmds.length < 2){
 				throw new Exception("app id is null.");
 			}
 	
@@ -187,8 +230,7 @@ public class CommandMain {
 	private void deployApp(String[] cmds){
 		
 		try{
-			
-			if(cmds.length == 1){
+			if(cmds.length < 2){
 				throw new Exception("app id is null.");
 			}
 	
@@ -205,8 +247,7 @@ public class CommandMain {
 	private void undeployApp(String[] cmds){
 		
 		try{
-			
-			if(cmds.length == 1){
+			if(cmds.length < 2){
 				throw new Exception("app id is null.");
 			}
 
@@ -219,10 +260,27 @@ public class CommandMain {
 		}
 	}
 	
-	private void refreshAppDef(String[] cmds){
+	
+	private void removeApp(String[] cmds){
 		
 		try{
+			if(cmds.length < 2){
+				throw new Exception("app id is null.");
+			}
 
+			Command cmd = new Command.REMOVE_APP();
+			cmd.addParam(cmds[1]);
+			CommandResponse response = invoker.invoke(cmd);
+			printResponse(response);
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+
+	
+	private void refreshAppDef(String[] cmds){
+		try{
 			CommandResponse response = invoker.invoke(new Command.REFRESH_APP_DEF());
 			printResponse(response);
 		}catch(Exception e){
@@ -234,12 +292,14 @@ public class CommandMain {
 	private void appDef(String[] cmds){
 		
 		try{
-			if(cmds[1] == null){
-				throw new Exception("app is null.");
+			if(cmds.length < 2){
+				throw new Exception("app id is null.");
 			}
-	
-			CommandResponse response = invoker.invoke(new Command.GET_APP_DEF());
-			printListResponse(response);
+			
+			Command cmd = new Command.GET_APP_DEF();
+			cmd.addParam(cmds[1]);
+			CommandResponse response = invoker.invoke(cmd);
+			printResponse(response);
 		}catch(Exception e){
 			e.printStackTrace();
 		}
@@ -261,8 +321,8 @@ public class CommandMain {
 	private void appInfo(String[] cmds){
 		
 		try{
-			if(cmds[1] == null){
-				throw new Exception("app is null.");
+			if(cmds.length < 2){
+				throw new Exception("app id is null.");
 			}
 		
 			Command cmd = new Command.GET_APP_INFO();
@@ -296,7 +356,7 @@ public class CommandMain {
 		String[] ss = cmds.toArray(new String[cmds.size()]);
 		return ss;
 	}
-	
+		
 	
 	private void printResponse(CommandResponse response){
 		if(response.isOK()){
@@ -305,6 +365,7 @@ public class CommandMain {
 			System.out.println(response.getException());
 		}
 	}
+
 	
 	private void printListResponse(CommandResponse response){
 		if(response.isOK()){
@@ -317,13 +378,17 @@ public class CommandMain {
 		}
 	}
 	
+	private void printConnectStatus(){
+		System.out.println("server connect info : host=["+invoker.getHost()+"],"
+				+ " port=["+invoker.getPort()+ "], timeout=["+ invoker.getTimeout()+"]" );
+	}
 	
 	public static void main(String[] argv){
 	
 		CommandLine cl = new CommandLine(argv);
-		String host = cl.getValue("-h", CommandInvoker.DEFAULT_HOST);
-		int port = cl.getIntValue("-p", CommandInvoker.DEFAULT_PORT);
-		int timeout = cl.getIntValue("-t", CommandInvoker.DEFALUT_TIMEOUT);
+		String host = cl.getValue("-h", CommandMain.DEFAULT_HOST);
+		int port = cl.getIntValue("-p", CommandMain.DEFAULT_PORT);
+		int timeout = cl.getIntValue("-t", CommandMain.DEFAULT_TIMEOUT);
 		
 		CommandMain cm = new CommandMain(host, port, timeout);
 		cm.process();

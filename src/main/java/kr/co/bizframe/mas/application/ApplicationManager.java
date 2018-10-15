@@ -384,9 +384,24 @@ public class ApplicationManager implements Lifecycle {
 		MasApplication ma = applications.get(appId);
 		
 		if(ma == null){
-			throw new Exception("can't deploy application. Application is not startup properly.!");
+			//throw new Exception("can't deploy application. Application is not startup properly.!");
+		
+			// fix #8 remove 에 대한 반대로 deploy시 MasApplication이 없으면 다시 생성
+			try {
+				ma = createManagedApplication(appDef);
+				applications.put(appId, ma);
+			} catch (Throwable t) {
+				internalDestroy(ma);
+				throw new Exception(t.getMessage(), t);
+			}
+		
+		}else{
+			
+			// fix #7 mas application이 update된 경우 반영 
+			updateManagedApplication(ma, appDef);
 		}
 			
+		
 		if(ma.getStatus() == MasApplication.Status.INITED ||
 				ma.getStatus() == MasApplication.Status.STARTED ){
 			throw new Exception("application status is not valid status=["+ma.getStatus()+ "]");
@@ -674,13 +689,13 @@ public class ApplicationManager implements Lifecycle {
 
 		MasApplication ma = null;
 		ApplicationContext context = new ApplicationContext(this);
-		String appId = def.getId();
-		String contextDir = def.getContextDir();
-		String name = def.getName();
+		//String appId = def.getId();
+		//String contextDir = def.getContextDir();
+		//String name = def.getName();
  
-		context.setId(appId);
-		context.setName(name);
-		context.setContextDir(contextDir);
+		context.setId(def.getId());
+		context.setName(def.getName());
+		context.setContextDir(def.getContextDir());
 		context.setProperties(def.getProperties());
 		context.setApplicationDef(def);
 		context.setHomeDir(homeDir);
@@ -688,6 +703,22 @@ public class ApplicationManager implements Lifecycle {
 		JMXManager.registerApplicationMgmt(ma);
 		return ma;
 	}
+	
+	
+	private void updateManagedApplication(MasApplication ma, ApplicationDef def){
+		
+		ApplicationContext context = ma.getContext();
+		ApplicationDef preDef = context.getApplicationDef();
+		if(!preDef.equals(def)){
+			log.info("updateManagedApplication");
+			context.setName(def.getName());
+			context.setContextDir(def.getContextDir());
+			context.setProperties(def.getProperties());
+			context.setApplicationDef(def);
+			context.setHomeDir(homeDir);
+		}
+	}
+	
 	
 	
 	

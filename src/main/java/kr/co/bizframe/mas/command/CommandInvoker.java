@@ -18,21 +18,21 @@ import kr.co.bizframe.mas.conf.MasConfig;
  */
 public class CommandInvoker {
 
-	public static String DEFAULT_HOST = "127.0.0.1";
+	//public static String DEFAULT_HOST = "127.0.0.1";
 	
-	public static int DEFAULT_PORT = 9091;
+	//public static int DEFAULT_PORT = 9004;
 
-	public static int DEFALUT_TIMEOUT = 100000;
+	//public static int DEFALUT_TIMEOUT = 100000;
 	
-	private String host = DEFAULT_HOST;
+	private String host;
 	
-	private int port = DEFAULT_PORT;
+	private int port;
 	
-	private int timeout = DEFALUT_TIMEOUT;
+	private int timeout = 100000;
 	
 	
-	public CommandInvoker(){
-	}
+	//public CommandInvoker(){
+	//}
 	
 	
 	public CommandInvoker(String host, int port){
@@ -40,11 +40,13 @@ public class CommandInvoker {
 		this.port = port;
 	}
 	
+	
 	public CommandInvoker(String host, int port, int timeout){
 		this.host = host;
 		this.port = port;
 		this.timeout = timeout;
 	}
+	
 	
 	/*
 	public CommandResponse invoke(Command command) throws Exception{
@@ -101,4 +103,37 @@ public class CommandInvoker {
 		//log.debug("response=" + cr);
 		return cr;
 	}
+
+
+	public String getHost() {
+		return host;
+	}
+
+
+	public void setHost(String host) {
+		this.host = host;
+	}
+
+
+	public int getPort() {
+		return port;
+	}
+
+
+	public void setPort(int port) {
+		this.port = port;
+	}
+
+
+	public int getTimeout() {
+		return timeout;
+	}
+
+
+	public void setTimeout(int timeout) {
+		this.timeout = timeout;
+	}
+	
+	
+	
 }

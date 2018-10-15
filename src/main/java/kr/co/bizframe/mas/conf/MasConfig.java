@@ -31,10 +31,8 @@ public class MasConfig {
 	private static Logger log = LoggerFactory.getLogger(MasConfig.class);
 
 	public final static String MAS_CONF_FILE = "mas-conf.xml";
-
-	//public static String DEFAULT_SERVER_IP = "127.0.0.1";
 	
-	public static int DEFAULT_SERVER_PORT = 9091;
+	public static int DEFAULT_SERVER_PORT = 9004;
 	
 	public static int DEFAULT_SERVER_TIMEOUT = 10000;
 
@@ -71,10 +69,11 @@ public class MasConfig {
 			String id = XMLUtil.getAttribute("id", serverEle);
 			String sport = XMLUtil.getAttribute("port", serverEle);
 			int port = PropertyUtil.getInt(sport, DEFAULT_SERVER_PORT);
-
 			server.setId(id);
+			// mykim 2018.08.28
+			System.setProperty("mas.id", id);
+
 			server.setPort(port);
-			// TODO config는 모양이 좀 ... mykim
 			server.setTimeout(DEFAULT_SERVER_TIMEOUT);
 			Element engineEle = serverEle.getChild("engine");
 			String shotDeploy = XMLUtil.getAttribute("hot-deploy", engineEle);

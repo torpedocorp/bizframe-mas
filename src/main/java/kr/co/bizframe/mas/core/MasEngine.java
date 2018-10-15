@@ -2,7 +2,9 @@ package kr.co.bizframe.mas.core;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import kr.co.bizframe.mas.Application;
 import kr.co.bizframe.mas.Lifecycle;
@@ -59,6 +61,7 @@ public class MasEngine implements Lifecycle {
 		this.engineId = engineDef.getId();
 		ApplicationsDef appsDef = engineDef.getApplications();
 		boolean hotDeploy = engineDef.isHotDeploy();
+		log.info("engine conf = " + engineDef);
 		this.applicationManager = new ApplicationManager(homeDir, appsDef, hotDeploy, this);
 
 		RoutingDef routingDef = engineDef.getRouting();
@@ -286,7 +289,7 @@ public class MasEngine implements Lifecycle {
 			ApplicationInfo appInfo = populateApplicationInfo(mapp);
 			appInfoList.add(appInfo);
 	
-			log.debug(appInfo.getId() + "serviceable=[" + appInfo.getServiceable()+"]" +
+			log.debug("[" + appInfo.getId() + "], serviceable=[" + appInfo.getServiceable()+"]" +
 					", routable=[" +appInfo.getRoutable()+"]");
 			
 		}
@@ -327,7 +330,14 @@ public class MasEngine implements Lifecycle {
 		appInfo.setStatus(mapp.getStatus().toString());
 		String loadClass = context.getApplicationDef().getLoadClass();
 		appInfo.setLoadClass(loadClass);
-
+		
+		HashMap<String, Object> ps = context.getProperties();
+		Set<String> keys = ps.keySet();
+		for(String key : keys){
+			Object v=  ps.get(key);
+			appInfo.putProperty(key, (String)v);
+		}
+		
 		Application app = mapp.getApplication();
 		if (app instanceof Serviceable) {
 			appInfo.setServiceable();
@@ -366,6 +376,16 @@ public class MasEngine implements Lifecycle {
 		applicationManager.undeployApplication(appId);
 	}
 
+	/*
+	 * Command.REMOVE_APP
+	 */
+	public void removeApplication(String appId) throws Exception {
+
+		log.debug("MasEngine remove appId=["+ appId + "]");
+		applicationManager.removeApplication(appId);
+	}
+	
+	
 	/*
 	 * Command.START_APP
 	 */

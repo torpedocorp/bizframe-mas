@@ -7,4 +7,6 @@ public interface ManagedMasServerMBean {
 	public String getStatus();
 	
 	public String getHomeDir();
+	
+	public String getId();
 }

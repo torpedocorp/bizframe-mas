@@ -36,7 +36,12 @@ public abstract class Command implements Serializable {
 		this.params.add(param);
 	}
 
-
+	public static class PING extends Command {
+		public PING(){
+			super("PING");
+		}
+	}
+	
 	public static class SHUTDOWN extends Command {
 		public SHUTDOWN(){
 			super("SHUTDOWN");
@@ -81,6 +86,13 @@ public abstract class Command implements Serializable {
 		}
 	}
 
+	public static class REMOVE_APP extends Command {
+		public REMOVE_APP(){
+			super("REMOVE_APP");
+		}
+	}
+
+	
 	public static class GET_APP_DEF extends Command {
 		public GET_APP_DEF(){
 			super("GET_APP_DEF");

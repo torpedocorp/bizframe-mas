@@ -59,6 +59,7 @@ public class MasApplication {
 		this.status = Status.LOADED;
 	}
 
+	
 	public Application getApplication() {
 		return application;
 	}

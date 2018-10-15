@@ -168,6 +168,14 @@ public class MasServer implements Lifecycle {
 						cr.setException(t.getMessage());
 					}
 				
+				} else if (cmd instanceof Command.PING) {
+					try{
+						cr = new CommandResponse("PONG");
+					}catch(Throwable t){
+						logger.error(t.getMessage(), t);
+						cr.setException(t.getMessage());
+					}
+					
 				} else if (cmd instanceof Command.VERSION) {
 					try{
 						String version = engine.getVersion();
@@ -199,8 +207,6 @@ public class MasServer implements Lifecycle {
 					}
 					
 				} else if (cmd instanceof Command.GET_APP_DEF){
-					
-					cr = new CommandResponse();
 				
 					cr = new CommandResponse();
 					java.util.List<String> list = cmd.getParams();
@@ -213,6 +219,8 @@ public class MasServer implements Lifecycle {
 					
 					try {
 						ApplicationDefInfo appDefInfoInfo = engine.getApplicationDef(appId);
+						if(appDefInfoInfo == null) throw new Exception("app id=["+appId+"] is not found.");
+						
 						cr = new CommandResponse(appDefInfoInfo);
 					}catch(Throwable t){
 						logger.error(t.getMessage(), t);
@@ -244,6 +252,8 @@ public class MasServer implements Lifecycle {
 
 					try {
 						ApplicationInfo appInfo  = engine.getApplicationInfo(appId);
+						if(appInfo == null) throw new Exception("app id=["+appId+"] is not found.");
+						
 						cr = new CommandResponse(appInfo);
 					}catch(Throwable t){
 						logger.error(t.getMessage(), t);
@@ -299,6 +309,27 @@ public class MasServer implements Lifecycle {
 						logger.error(t.getMessage(), t);
 						cr.setException(t.getMessage());
 					}
+					
+				} else if (cmd instanceof Command.REMOVE_APP){
+					
+					cr = new CommandResponse();
+					java.util.List<String> list = cmd.getParams();
+					if(list.size() == 0) {
+						cr.setException("appId parameter is missing.");
+					}
+
+					String appId = (String)list.get(0);
+					logger.debug("try to remove app Id = ["+appId+"]");
+
+					try {
+						engine.removeApplication(appId);
+						cr = new CommandResponse(RESP_MSG_OK);
+					}catch(Throwable t){
+						t.printStackTrace();
+						logger.error(t.getMessage(), t);
+						cr.setException(t.getMessage());
+					}
+					
 					
 
 				} else if (cmd instanceof Command.START_APP){

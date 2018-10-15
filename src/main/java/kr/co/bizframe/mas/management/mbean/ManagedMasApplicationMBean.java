@@ -20,7 +20,7 @@ public interface ManagedMasApplicationMBean {
 	
 	public String getApplicationType();
 
-	public List<String> getSubManagementNames();
+	public String getSubManagementInfos();
 	
 	public Map<String, String> getParameters();
 	
