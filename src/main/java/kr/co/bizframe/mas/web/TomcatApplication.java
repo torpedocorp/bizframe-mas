@@ -100,20 +100,32 @@ public class TomcatApplication implements Serviceable, Application {
 
 		Connector connector = new Connector();
 		connector.setPort(port);
+		connector.setAttribute("protocol", "HTTP/1.1");
+		connector.setAttribute("maxThreads", "200");
+		
+		//connector.setAttribute("protocol", "org.apache.coyote.http11.Http11AprProtocol");
 
+		
 		if (https) {
 			connector.setSecure(true);
 			connector.setScheme("https");
-			connector.setAttribute("keyAlias", "tomcat");
-			connector.setAttribute("keystorePass", "password");
-			connector.setAttribute("keystoreType", "JKS");
-			connector.setAttribute("keystoreFile", "keystore.jks");
-			connector.setAttribute("clientAuth", "false");
-			connector.setAttribute("protocol", "HTTP/1.1");
-			connector.setAttribute("sslProtocol", "TLS");
-			connector.setAttribute("maxThreads", "200");
-			connector.setAttribute("protocol", "org.apache.coyote.http11.Http11AprProtocol");
 			connector.setAttribute("SSLEnabled", true);
+			
+			String keystoreFile = context.getProperty("keystoreFile");
+			String keystorePass = context.getProperty("keystorePass");
+			String truststoreFile = context.getProperty("truststoreFile");
+			String truststorePass = context.getProperty("truststorePass");
+			boolean clientAuth = context.getBooleanProperty("clientAuth", false);
+			
+			connector.setAttribute("keyAlias", "tomcat");
+			connector.setAttribute("keystoreType", "JKS");
+			connector.setAttribute("keystoreFile", keystoreFile);
+			connector.setAttribute("keystorePass", keystorePass);
+			connector.setAttribute("truststoreFile", truststoreFile);
+			connector.setAttribute("truststorePass", truststorePass);
+			
+			connector.setAttribute("clientAuth", clientAuth);
+			connector.setAttribute("sslProtocol", "TLS");
 		}
 		return connector;
 

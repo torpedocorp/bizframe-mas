@@ -258,16 +258,14 @@ public class JettyApplication implements Serviceable, Application {
 		            new SslConnectionFactory(sslContextFactory, HttpVersion.HTTP_1_1.asString()),
 		                new HttpConnectionFactory(httpsConfig));
 	        
-			connector.setPort(port);
-
 		}else{
 			
 			connector = new ServerConnector(jettyServer);
 			//connector = new SelectChannelConnector();
-			connector.setPort(port);
 		}
+		
+		connector.setPort(port);
 		return connector;
-	
 	}
 	
 	/*
