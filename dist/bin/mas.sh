@@ -4,17 +4,19 @@
 # Torpedo corp.
 # --------------------------------------------------------------
 
-
 #------------------------------------------------------
 # JAVA_HOME=
 # MAS_HOME=
 #----------------------------------------------------------
 
-MAS_HOME=../
-JAVA_OPTS=' -Xms128M -Xmx256M'  
+#MAS_HOME=../
+P=$PWD
+MAS_HOME=${P%/*}
+
+#JAVA_OPTS=' -Xms128M -Xmx256M'  
+JAVA_OPTS=' -Xms128M -Xmx256M -Dhawtio.authenticationEnabled=false '  
 
 MAS_CLASSPATH=$MAS_HOME/bin/boot.jar
-
 
 echo Start BizFrame MAS platform
 echo JAVA_HOME : $JAVA_HOME
@@ -38,8 +40,8 @@ if [ -z "$JAVA_HOME" ]; then
 fi
 
 if [ $1 = "start" ]; then
-nohup $JAVA_HOME/bin/java -classpath $MAS_CLASSPATH kr.co.bizframe.mas.boot.Main $CMD_LINE_ARGS > /dev/null 2>&1 & 
+nohup $JAVA_HOME/bin/java -classpath $MAS_CLASSPATH $JAVA_OPTS kr.co.bizframe.mas.boot.Main $CMD_LINE_ARGS > /dev/null 2>&1 & 
 else
-$JAVA_HOME/bin/java -classpath $MAS_CLASSPATH kr.co.bizframe.mas.boot.Main $CMD_LINE_ARGS
+$JAVA_HOME/bin/java -classpath $MAS_CLASSPATH $JAVA_OPTS kr.co.bizframe.mas.boot.Main $CMD_LINE_ARGS
 fi
 
