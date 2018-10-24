@@ -64,7 +64,7 @@ public class ZipUtil {
             zis.close();
             fis.close();
         } catch (IOException e) {
-            e.printStackTrace();
+        	throw new RuntimeException(e.getMessage(), e);
         }
         
 		

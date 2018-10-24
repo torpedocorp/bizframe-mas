@@ -186,7 +186,9 @@ public class ApplicationManager implements Lifecycle {
 		return null;
 	}
 	
-
+	/*
+	 * support mar, zip file
+	 */
 	private File getMarFile(String name){
 
 		if(name == null) return null;
