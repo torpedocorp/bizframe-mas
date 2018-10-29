@@ -88,13 +88,13 @@ public class ApplicationWatcher {
 						}
 						
 						if (event.kind() == StandardWatchEventKinds.ENTRY_DELETE) {
-							System.out.println("Delete: " + event.context().toString());
+							//System.out.println("Delete: " + event.context().toString());
 							String appDir = path.toAbsolutePath() + "/" + event.context().toString();
 							applicationManager.removeApplication(new File(appDir));
 						}
 						
 						if (event.kind() == StandardWatchEventKinds.ENTRY_MODIFY) {
-							System.out.println("Modify: " + event.context().toString());
+							//System.out.println("Modify: " + event.context().toString());
 						}
 					}
 					watckKey.reset();
