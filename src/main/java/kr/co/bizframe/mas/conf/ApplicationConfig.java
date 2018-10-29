@@ -120,14 +120,6 @@ public class ApplicationConfig {
 		return def;
 	}
 
-	public static void main(String[] argv) {
-
-		try {
-			ApplicationDef def = ApplicationConfig.parse(new File("C:/workspace/ecf_24_dev/bizframe_mas/dist/application/test1/application.xml"));
-			System.out.println("def = " + def);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
+	
+	
 }

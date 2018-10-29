@@ -151,7 +151,6 @@ public class DefaultRoutingManager extends AbstractRoutingManager {
 			throw new RoutingException("route application object is null.");
 		}
 
-		// System.out.println("routing app = " + appObj.getClass().getName());
 		if (!(appObj instanceof Routable)) {
 			throw new RoutingException(applicationId + "," + appObj + " routing application cannot receive message.");
 		}
