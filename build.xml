@@ -22,7 +22,7 @@
 
 	<property name="jar.name" value="${product.name}-${product.version}.jar"/>
 	<property name="jar.command.name" value="${product.name}-command-${product.version}.jar"/>
-	<property name="pkg.dir" value="kr/co/bizframe/"/>
+	<property name="pkg.dir" value="kr/co/bizframe/mas"/>
 
 	<!-- =================================================================== -->
 	<!-- Build classpath 													 -->
@@ -131,12 +131,12 @@
 		</target>
 
 
-	<target name="deploy" depends="compile,boot, command">
+	<target name="deploy" depends="compile, boot, command">
 
 		<jar jarfile="${deploy.dir}/${jar.name}">
 			<fileset dir="${classes.dir}">
 				<include name="${pkg.dir}/**/*.*" />
-				<exclude name="${pkg.dir}/sample/**/*.*" />
+				<exclude name="${pkg.dir}/example/**/*.*" />
 			</fileset>
 			<manifest>
 				<attribute name="Created-By" value="Torpedo Corporation"/>
@@ -156,6 +156,35 @@
 		<!--copy file="${deploy.dir}/${jar.name}" todir="../esb_mq/lib"/-->
 	</target>
 
+	
+	<target name="example" depends="compile, boot, command">
+
+		<javac srcdir="${example.dir}"
+					destdir="${classes.dir}"
+					debug="on"
+					deprecation="on"
+					encoding="UTF-8"
+					optimize="on"
+					classpath="${build.classpath}">
+		</javac>
+		
+		<jar jarfile="${deploy.dir}/bizframe-mas-example.jar">
+			<fileset dir="${classes.dir}/">
+				<include name="${pkg.dir}/example/**/*.*" />
+			</fileset>
+			<manifest>
+				<attribute name="Created-By" value="Torpedo Corporation"/>
+				<attribute name="Compiled-By" value="jdk-${java.version}"/>
+				<section name="BizFrame Remoting">
+					<attribute name="Implementation-Title" value="${product.name}"/>
+					<attribute name="Implementation-Version" value="${product.version} build ${DSTAMP} ${TSTAMP}"/>
+					<attribute name="Implementation-Vendor" value="Torpedo Corporation"/>
+				</section>
+			</manifest>
+		</jar>
+		
+	</target>
+	
 	<!-- =================================================================== -->
 	<!-- Cleans up generated stuff                                           -->
 	<!-- =================================================================== -->
