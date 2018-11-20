@@ -211,13 +211,13 @@ public class MasApplication {
 					startTime = System.currentTimeMillis();
 					//status = Status.STARTED;
 					changeStatus(status, Status.STARTED);	
-				} catch (Exception e) {
-					log.error(e.getMessage(), e);
+				} catch (Throwable t) {
+					log.error(t.getMessage(), t);
 					
 					// 시작시 문제가 발생하면 application stop 시킴.
 					stop();
 					//throw new ApplicationException(e.getMessage(), e);
-				}
+				} 
 			} else {
 				throw new ApplicationException("cannot start application=[" + appId + "], application status=[" + status + "]");
 			}
@@ -247,9 +247,9 @@ public class MasApplication {
 					stopTime = System.currentTimeMillis();
 					//status = Status.STOPPED;
 					changeStatus(status, Status.STOPPED);	
-				}catch(Exception e){
+				}catch(Throwable t){
 					status = preStatus;
-					throw new ApplicationException(e.getMessage(), e);
+					throw new ApplicationException(t.getMessage(), t);
 				}
 
 			}else{

@@ -347,8 +347,8 @@ public class ApplicationManager implements Lifecycle {
 		for (ApplicationDef appDef : appDefs) {
 			try{
 				startupApplication(appDef);
-			}catch(Exception e){
-				log.error(e.getMessage(), e);
+			}catch(Throwable t){
+				log.error(t.getMessage(), t);
 			}
 		}
 	}
