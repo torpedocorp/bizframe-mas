@@ -114,6 +114,9 @@ public class ApplicationWatcher {
 					}
 					watckKey.reset();
 				}
+			}catch(InterruptedException e){
+				// fix print interrutException..
+				// ignore InterruptException...
 			}catch(Exception e){
 				log.error(e.getMessage(), e);
 			}
