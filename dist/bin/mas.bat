@@ -11,7 +11,7 @@ rem ----------------------------------------------------------
 
 
 SET MAS_HOME= ../
-SET JAVA_OPTS= -Xms128m -Xmx256m  
+SET JAVA_OPTS= -Xms128m -Xmx256m -Dhawtio.authenticationEnabled=false  
 
 SET MAS_CLASSPATH=%MAS_HOME%\bin\boot.jar
 
