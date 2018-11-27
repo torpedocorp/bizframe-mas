@@ -28,6 +28,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import kr.co.bizframe.mas.Serviceable;
+
 public class ApplicationWatcher {
 	
 	private static Logger log = LoggerFactory.getLogger(ApplicationWatcher.class);
@@ -100,6 +102,14 @@ public class ApplicationWatcher {
 							String appDir = path.toAbsolutePath() + "/" + event.context().toString();
 							ApplicationDef appDef = applicationManager.scanAppDirectory(new File(appDir));
 							applicationManager.deployApplication(appDef.getId());
+							
+							// implement auto start 
+							if(appDef.isAutoStart()){
+								MasApplication ma =  applicationManager.getManagedApplication(appDef.getId());
+								if(ma.getApplication() instanceof Serviceable){
+									applicationManager.startApplication(appDef.getId());
+								}
+							}
 						}
 						
 						if (event.kind() == StandardWatchEventKinds.ENTRY_DELETE) {
