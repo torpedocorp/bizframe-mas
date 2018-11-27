@@ -19,6 +19,8 @@ package kr.co.bizframe.mas.command.model;
 import java.io.Serializable;
 import java.util.HashMap;
 
+import kr.co.bizframe.mas.util.TimeUtil;
+
 public class ApplicationInfo implements Serializable {
 
 	private static final long serialVersionUID = -7110066878705684652L;
@@ -153,7 +155,10 @@ public class ApplicationInfo implements Serializable {
 
 	@Override
 	public String toString() {
-		return "ApplicationInfo [id=" + id + ", name=" + name + ", loadClass=" + loadClass + ", contextDir=" + contextFilePath + ",  properties=" + properties + "] ";
+		return "ApplicationInfo [id=" + id + ", name=" + name + ", loadClass=" + loadClass + ", contextDir=" + contextFilePath + ",  properties=" + properties 
+		+ ", initTime=["+TimeUtil.getTimeStamp(initTime)+"], startTime=["+TimeUtil.getTimeStamp(startTime)+"], stopTime=["+TimeUtil.getTimeStamp(stopTime)+"]";
 	}
-
+	
+	
+	
 }

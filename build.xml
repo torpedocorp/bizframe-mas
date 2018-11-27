@@ -114,7 +114,8 @@
 				<!-- ======================================================= -->
 				<!-- TO SET : List class filenames to delete here -->
 				<!-- ======================================================= -->
-					<include name="${pkg.dir}/mas/command/**/*.*"/>
+					<include name="${pkg.dir}/command/**/*.*"/>
+					<include name="${pkg.dir}/util/TimeUtil.class"/>
 				</fileset>
 				<manifest>
 					<attribute name="Created-By" value="Torpedo Corporation"/>
