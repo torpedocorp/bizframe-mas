@@ -94,17 +94,23 @@ public class ApplicationClassLoader extends URLClassLoader {
 
 		String classDir = "classes";
 		String libDir = "lib";
-
+		String confDir = "conf";
+		
 		File ccd = new File(contextDir, classDir);
 		File ld = new File(contextDir, libDir);
-
+		File confd = new File(contextDir, confDir);
+		
 		File[] fcds = new File[1];
 		fcds[0] = ccd;
 
 		File[] lds = new File[1];
 		lds[0] = ld;
 
+		File[] confds = new File[1];
+		confds[0] = confd;
+		
 		try {
+			addClassPaths(confds);
 			addClassPaths(fcds);
 			addLibPaths(lds);
 		} catch (Exception e) {
@@ -112,6 +118,8 @@ public class ApplicationClassLoader extends URLClassLoader {
 		}
 	}
 
+	
+	
 	private void addClassPaths(File[] classPaths) throws Exception {
 
 		for (int ii = 0; ii < classPaths.length; ii++) {

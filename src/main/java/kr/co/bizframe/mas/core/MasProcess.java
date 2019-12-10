@@ -24,10 +24,6 @@ import java.io.FileWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.sun.jna.Library;
-import com.sun.jna.Native;
-import com.sun.jna.platform.win32.Kernel32;
-
 
 
 public class MasProcess {
@@ -110,24 +106,22 @@ public class MasProcess {
 	private long getProcessId(){
 		
 		if(isWindows()){
-			int pid = Kernel32.INSTANCE.GetCurrentProcessId();
-			return pid;
+			WindowsProcess wp = new WindowsProcess();
+			return wp.getProcessId();
 		}else{
-			int pid = CLibrary.INSTANCE.getpid();
-			return pid;
+			UnixProcess up = new UnixProcess();
+			return up.getProcessId();
 		}
 	}
 	
 	
-	private interface CLibrary extends Library {
-	    CLibrary INSTANCE = (CLibrary) Native.loadLibrary("c", CLibrary.class);   
-	    int getpid ();
-	}
 	
 	public static boolean isWindows() {
 		String os = System.getProperty("os.name").toLowerCase();
         return (os.indexOf("win") >= 0);
     }
+	
+	
 	
 	
 }

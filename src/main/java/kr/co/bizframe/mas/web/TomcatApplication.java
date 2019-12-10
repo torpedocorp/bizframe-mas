@@ -55,7 +55,7 @@ public class TomcatApplication implements Serviceable, Application {
 		Service service = tomcat.getService();
 		service.addConnector(createConnector(context));
 		service.setParentClassLoader(context.getClassLoader());
-		
+	
 		List<WebAppConfig> waconfigs = WebAppConfigs.getWebAppConfigs(context);
 		tomcatContexts = new ArrayList<Context>();
 		for(WebAppConfig waconfig : waconfigs){
@@ -70,7 +70,7 @@ public class TomcatApplication implements Serviceable, Application {
 				StandardJarScanner scanner = (StandardJarScanner) tomcatContext.getJarScanner();
 				scanner.setScanBootstrapClassPath(false);
 				scanner.setScanClassPath(false);
-				
+		
 				tomcatContext.setParentClassLoader(context.getClassLoader());
 				tomcatContexts.add(tomcatContext);
 			}catch(Exception e){

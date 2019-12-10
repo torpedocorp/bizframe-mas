@@ -92,7 +92,7 @@ public class MasServer implements Lifecycle {
 			throw new Exception("could not listen on port: " + port, e);
 		}
 		logger.info("mas server listen on port=[" + port + "]");
-
+		
 		process = new MasProcess(homeDir);
 		process.create();
 		
